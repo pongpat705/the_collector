@@ -11,14 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-import th.co.collector.services.MaoUserDetailService;
-
 @Configuration
 @EnableWebSecurity
 public class Security extends WebSecurityConfigurerAdapter {
-	
-	@Autowired
-	MaoUserDetailService userDetailsService;
 	
 	@Autowired
 	DataSource dataSource;
