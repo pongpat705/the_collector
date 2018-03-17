@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>The Collectors</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<p th:text="'Login as ' + ${authorities} + '!'" />
+	
+	<ul>
+	  <li>
+	    <a href="#" th:href="@{/}">Home</a>
+	  </li>
+	  <li>
+	    <a href="#" th:href="@{/user}">User</a>
+	  </li>
+	</ul>
+
+</body>
+</html>
