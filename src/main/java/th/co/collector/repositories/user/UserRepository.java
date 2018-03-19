@@ -1,4 +1,4 @@
-package th.co.collector.repositories;
+package th.co.collector.repositories.user;
 
 import java.util.List;
 

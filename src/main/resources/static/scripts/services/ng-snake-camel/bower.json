@@ -1,0 +1,33 @@
+{
+  "name": "ng-snake-camel",
+  "main": "ng-snake-camel.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/Serrabits/ngSnakeCamel",
+  "description": "AngularJS $filter and $http convert JSON to snake ou camelcase",
+  "authors": [
+    "Junior Conte <juniorcnt@gmail.com>"
+  ],
+  "keywords": [
+    "snakecase",
+    "camelcase",
+    "json",
+    "angular",
+    "$filter",
+    "$http",
+    "transformRequest",
+    "transformResponse"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+    "dependencies": {
+    "angular": ">=1.4.0"
+  },
+  "devDependencies": {
+    "angular-mocks": ">=1.4.0"
+  },
+  "license": "MIT"
+}

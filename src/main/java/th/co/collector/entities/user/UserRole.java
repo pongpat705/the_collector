@@ -15,7 +15,7 @@ import th.co.collector.constants.Role;
 
 @Entity
 @Table(name = "USER_ROLE")
-@TableGenerator(name="GEN_USER_ROLE", initialValue=0, allocationSize=50)
+@TableGenerator(name="GEN_USER_ROLE", initialValue=0, allocationSize=1)
 public class UserRole {
 
 	@Id

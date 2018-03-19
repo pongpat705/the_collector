@@ -16,7 +16,7 @@ import javax.persistence.TableGenerator;
 
 @Entity
 @Table(name = "USER")
-@TableGenerator(name="GEN_USER", initialValue=0, allocationSize=50)
+@TableGenerator(name="GEN_USER", initialValue=0, allocationSize=1)
 public class User {
 
 	@Id

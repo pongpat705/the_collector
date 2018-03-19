@@ -44,3 +44,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+# javascript vendor
+src/main/resources/static/bower_components/
