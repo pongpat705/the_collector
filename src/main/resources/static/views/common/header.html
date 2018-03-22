@@ -13,9 +13,39 @@
 <div class="heading">
 	<ul class="nav navbar-nav">
 		<li >
-			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.user" aria-haspopup="true" aria-expanded="true">
+			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.cashbook" aria-haspopup="true" aria-expanded="true">
 				<i class="fa fa-bars" aria-hidden="true"></i>
-				<span >MENU</span> 
+				<span >{{functions.CASH_BOOK.value1}}</span> 
+			</a>	
+		</li>	
+		<li class="uib-dropdown dropdown open" uib-dropdown>
+			<a style="color:#000;" href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true"> 
+				<span >{{functions.BALANCE_REPORT.value1}}</span> 
+				<span class="caret"></span>
+			</a>	
+			<ul class="dropdown-menu dropdown-menu">
+				<li>
+					<a style="color:#000;" ui-sref="app.balance.list">
+				        <span>{{balanceReport.LIST.value1}}</span>
+			     	</a>	
+				</li>
+				<li>
+					<a style="color:#000;" ui-sref="app.balance.make">
+				        <span>{{balanceReport.MAKE.value1}}</span>
+			     	</a>	
+				</li>
+			</ul>
+		</li>	
+		<li >
+			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.income" aria-haspopup="true" aria-expanded="true">
+				<i class="fa fa-bars" aria-hidden="true"></i>
+				<span >{{functions.SCHOOL_INCOME.value1}}</span> 
+			</a>	
+		</li>	
+		<li >
+			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.import" aria-haspopup="true" aria-expanded="true">
+				<i class="fa fa-bars" aria-hidden="true"></i>
+				<span >{{functions.IMPORT_DATA.value1}}</span> 
 			</a>	
 		</li>	
 		<li class="uib-dropdown dropdown open" uib-dropdown>
@@ -25,67 +55,62 @@
 			</a>			
 			<ul class="dropdown-menu dropdown-menu">
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.nbudget">
 				        <span>{{moneyControlForms.N_BUDGET.value1}}</span>
 			     	</a>	
 				</li>
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.loanfund">
 				        <span>{{moneyControlForms.LOAN_FUND.value1}}</span>
 			     	</a>	
 				</li>
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.subsidy">
 				        <span>{{moneyControlForms.SUBSIDY.value1}}</span>
 			     	</a>	
 				</li>
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.insurance">
 				        <span>{{moneyControlForms.INSURANCE.value1}}</span>
 			     	</a>	
 				</li>
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
-				        <span>{{moneyControlForms.INSURANCE.value1}}</span>
-			     	</a>	
-				</li>
-				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.fteacher">
 				        <span>{{moneyControlForms.FOREIGN_TEACHER.value1}}</span>
 			     	</a>	
 				</li>
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.expense">
 				        <span>{{moneyControlForms.EXPENSE.value1}}</span>
 			     	</a>	
 				</li>
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.education">
 				        <span>{{moneyControlForms.EDUCATION_SUPPORT.value1}}</span>
 			     	</a>	
 				</li>
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.tax">
 				        <span>{{moneyControlForms.TAX.value1}}</span>
 			     	</a>	
 				</li>
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.revenue">
 				        <span>{{moneyControlForms.REVENUE.value1}}</span>
 			     	</a>	
 				</li>
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.contact">
 				        <span>{{moneyControlForms.CONTRACT_COLLATERAL.value1}}</span>
 			     	</a>	
 				</li>
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.scholarship">
 				        <span>{{moneyControlForms.SCHOLARSHIP.value1}}</span>
 			     	</a>	
 				</li>
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
+					<a style="color:#000;" ui-sref="app.form.healthcheck">
 				        <span>{{moneyControlForms.HEALTH_CHECK.value1}}</span>
 			     	</a>	
 				</li>
@@ -101,7 +126,7 @@
 	<ul class="nav navbar-nav navbar-right" >
 		<li class="uib-dropdown dropdown open" uib-dropdown>
 			<a style="color:#000;" href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true"><img data-ng-src="images/avatar.png" class="header-avatar img-circle" alt="user" title="user" src="images/avatar.jpg"> 
-				<span >{{currentUser}}</span> 
+				<span >{{userData.name}}</span> 
 				<span class="caret"></span>
 			</a>			
 			<ul class="dropdown-menu dropdown-menu" uib-dropdown-menu="" ng-if="!isAuthenticated()">

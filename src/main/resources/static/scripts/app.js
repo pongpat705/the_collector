@@ -27,7 +27,12 @@ angular
     'permission', 'permission.ui', 
     'restangular', 
     'toastr',
-    'ngSnakeCamel'
+    'ngSnakeCamel',
+    'ui.grid',
+    'ui.grid.pagination',
+    'ui.grid.resizeColumns',
+    'ui.grid.autoFitColumns',
+    'ngMaterial'
   ])
   .constant('COLORS', {
     font: 'Arial, "Helvetica Neue", Helvetica, sans-serif',
@@ -49,6 +54,13 @@ angular
 	  $rootScope.userData = _USER_DATA;
 	  $rootScope.functions = _FUNCTION;
 	  $rootScope.moneyControlForms = _MONEY_CONTROL_FORM;
+	  
+	  $rootScope.balanceReport = _BALANCE_REPORT;
+	  
+	  $rootScope.dropdownBookbank = _DROPDOWN_BOOKBANK;
+	  $rootScope.dropdownBalance = _DROPDOWN_BALANCE;
+	  $rootScope.mapBookBank = _MAP_BOOKBANK;
+	  $rootScope.mapBalance = _MAP_BALANCE;
 	  
 	  $rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams, options){
 		  $uibModalStack.dismissAll();

@@ -12,12 +12,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-import th.co.collector.entities.BaseDomain;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "BALANCE_MASTER")
 @TableGenerator(name="GEN_BALANCE_MASTER", initialValue=0, allocationSize=1)
-public class BalanceMaster extends BaseDomain{
+public class BalanceMaster{
 
 	@Id
     @GeneratedValue(strategy=GenerationType.TABLE, generator="GEN_BALANCE_MASTER")
@@ -27,6 +27,7 @@ public class BalanceMaster extends BaseDomain{
 	
 	private String amphur;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date createDate;
 	
 	@OneToMany(cascade=CascadeType.ALL)
@@ -47,108 +48,132 @@ public class BalanceMaster extends BaseDomain{
 	private String receiveBy;
 	
 	private String supervisor;
+	
+	private String recordBy;
+	private String reviewBy;
+	private String approveBy;
+	
+	
+	public String getReviewBy() {
+		return reviewBy;
+	}
+	public String getApproveBy() {
+		return approveBy;
+	}
+	public void setReviewBy(String reviewBy) {
+		this.reviewBy = reviewBy;
+	}
+	public void setApproveBy(String approveBy) {
+		this.approveBy = approveBy;
+	}
+	public String getRecordBy() {
+		return recordBy;
+	}
+	public void setRecordBy(String recordBy) {
+		this.recordBy = recordBy;
+	}
 
-	protected Long getMasterId() {
+	public Long getMasterId() {
 		return masterId;
 	}
 
-	protected String getDepartment() {
+	public String getDepartment() {
 		return department;
 	}
 
-	protected String getAmphur() {
+	public String getAmphur() {
 		return amphur;
 	}
 
-	protected Date getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	protected List<Balance> getBalances() {
+	public List<Balance> getBalances() {
 		return balances;
 	}
 
-	protected String getTotalText() {
+	public String getTotalText() {
 		return totalText;
 	}
 
-	protected String getCreateBy() {
+	public String getCreateBy() {
 		return createBy;
 	}
 
-	protected String getCommittee1() {
+	public String getCommittee1() {
 		return committee1;
 	}
 
-	protected String getCommittee2() {
+	public String getCommittee2() {
 		return committee2;
 	}
 
-	protected String getCommittee3() {
+	public String getCommittee3() {
 		return committee3;
 	}
 
-	protected Date getReceiveDate() {
+	public Date getReceiveDate() {
 		return receiveDate;
 	}
 
-	protected String getReceiveBy() {
+	public String getReceiveBy() {
 		return receiveBy;
 	}
 
-	protected String getSupervisor() {
+	public String getSupervisor() {
 		return supervisor;
 	}
 
-	protected void setMasterId(Long masterId) {
+	public void setMasterId(Long masterId) {
 		this.masterId = masterId;
 	}
 
-	protected void setDepartment(String department) {
+	public void setDepartment(String department) {
 		this.department = department;
 	}
 
-	protected void setAmphur(String amphur) {
+	public void setAmphur(String amphur) {
 		this.amphur = amphur;
 	}
 
-	protected void setCreateDate(Date createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	protected void setBalances(List<Balance> balances) {
+	public void setBalances(List<Balance> balances) {
 		this.balances = balances;
 	}
 
-	protected void setTotalText(String totalText) {
+	public void setTotalText(String totalText) {
 		this.totalText = totalText;
 	}
 
-	protected void setCreateBy(String createBy) {
+	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
 	}
 
-	protected void setCommittee1(String committee1) {
+	public void setCommittee1(String committee1) {
 		this.committee1 = committee1;
 	}
 
-	protected void setCommittee2(String committee2) {
+	public void setCommittee2(String committee2) {
 		this.committee2 = committee2;
 	}
 
-	protected void setCommittee3(String committee3) {
+	public void setCommittee3(String committee3) {
 		this.committee3 = committee3;
 	}
 
-	protected void setReceiveDate(Date receiveDate) {
+	public void setReceiveDate(Date receiveDate) {
 		this.receiveDate = receiveDate;
 	}
 
-	protected void setReceiveBy(String receiveBy) {
+	public void setReceiveBy(String receiveBy) {
 		this.receiveBy = receiveBy;
 	}
 
-	protected void setSupervisor(String supervisor) {
+	public void setSupervisor(String supervisor) {
 		this.supervisor = supervisor;
 	}
 	

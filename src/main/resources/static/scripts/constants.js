@@ -1,2 +1,2 @@
 'use strict';
-var CONTEXT = '/ipe';
+var CONTEXT = '/cms';

@@ -10,12 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-import th.co.collector.entities.BaseDomain;
-
 @Entity
 @Table(name = "SCHOOL_BUDGET")
 @TableGenerator(name="GEN_SCHOOL_BUDGET", initialValue=0, allocationSize=1)
-public class SchoolBudget extends BaseDomain{
+public class SchoolBudget{
 
 	@Id
     @GeneratedValue(strategy=GenerationType.TABLE, generator="GEN_SCHOOL_BUDGET")
@@ -38,6 +36,29 @@ public class SchoolBudget extends BaseDomain{
 	private BigDecimal sum;
 	
 	private String remark;
+	private String recordBy;
+	private String reviewBy;
+	private String approveBy;
+	
+	
+	public String getReviewBy() {
+		return reviewBy;
+	}
+	public String getApproveBy() {
+		return approveBy;
+	}
+	public void setReviewBy(String reviewBy) {
+		this.reviewBy = reviewBy;
+	}
+	public void setApproveBy(String approveBy) {
+		this.approveBy = approveBy;
+	}
+	public String getRecordBy() {
+		return recordBy;
+	}
+	public void setRecordBy(String recordBy) {
+		this.recordBy = recordBy;
+	}
 
 	protected Long getBudgetId() {
 		return budgetId;

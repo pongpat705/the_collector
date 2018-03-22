@@ -9,12 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-import th.co.collector.entities.BaseDomain;
-
 @Entity
 @Table(name = "CHEST")
 @TableGenerator(name="GEN_CHEST", initialValue=0, allocationSize=1)
-public class Chest extends BaseDomain{
+public class Chest{
 
 	@Id
     @GeneratedValue(strategy=GenerationType.TABLE, generator="GEN_CHEST")
@@ -25,6 +23,31 @@ public class Chest extends BaseDomain{
 	private String accountName;
 	
 	private BigDecimal balance;
+	
+	private String recordBy;
+	private String reviewBy;
+	private String approveBy;
+	
+	
+	public String getReviewBy() {
+		return reviewBy;
+	}
+	public String getApproveBy() {
+		return approveBy;
+	}
+	public void setReviewBy(String reviewBy) {
+		this.reviewBy = reviewBy;
+	}
+	public void setApproveBy(String approveBy) {
+		this.approveBy = approveBy;
+	}
+	public String getRecordBy() {
+		return recordBy;
+	}
+	public void setRecordBy(String recordBy) {
+		this.recordBy = recordBy;
+	}
+	
 
 	protected Long getChestId() {
 		return chestId;

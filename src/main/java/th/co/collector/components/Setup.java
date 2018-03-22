@@ -37,7 +37,7 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@PostConstruct
 	 public void settingData(){
-//		initialRole();
+		initialRole();
 		
 		initialSystemParameter();
 	 }
@@ -45,19 +45,23 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 	@Transactional
 	public void initialRole(){
 		 log.info("inserting admin");
-			User adminUser = new User();
-			adminUser.setEnabled("1");
-			adminUser.setUserName("supadmin");
-			adminUser.setPassword("supadmin");
-			
-			userRepository.save(adminUser);
-			
-			UserRole adminRole = new UserRole();
-			adminRole.setEnabled("1");
-			adminRole.setRole(Role.ROLE_SUPER_ADMIN);
-			adminRole.setUser(adminUser);
-			
-			userRoleRepository.save(adminRole);
+		 
+		 	
+			User adminUser = userRepository.findByUserName("supadmin");
+			if(null == adminUser) {
+				adminUser = new User();
+				adminUser.setEnabled("1");
+				adminUser.setUserName("supadmin");
+				adminUser.setPassword("supadmin");
+				userRepository.save(adminUser);
+				
+				UserRole adminRole = new UserRole();
+				adminRole.setEnabled("1");
+				adminRole.setRole(Role.ROLE_SUPER_ADMIN);
+				adminRole.setUser(adminUser);
+				
+				userRoleRepository.save(adminRole);
+			}
 			
 	}
 	
@@ -95,6 +99,28 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 			balanceReport.setParamCode("BALANCE_REPORT");
 			balanceReport.setValue1("รายงานคงเหลือประจำวัน");
 			systemParameterRepository.save(balanceReport);
+		}
+		
+		SystemParameter makeReport = systemParameterRepository.findByParamGroupAndParamCode("BALANCE_REPORT", "MAKE");
+		if(null == makeReport) {
+			makeReport = new SystemParameter();
+			makeReport.setCreateBy("SYSTEM");
+			makeReport.setCreateDate(new Date());
+			makeReport.setParamGroup("BALANCE_REPORT");
+			makeReport.setParamCode("MAKE");
+			makeReport.setValue1("สร้างรายงาน");
+			systemParameterRepository.save(makeReport);
+		}
+		
+		SystemParameter balanceList = systemParameterRepository.findByParamGroupAndParamCode("BALANCE_REPORT", "LIST");
+		if(null == balanceList) {
+			balanceList = new SystemParameter();
+			balanceList.setCreateBy("SYSTEM");
+			balanceList.setCreateDate(new Date());
+			balanceList.setParamGroup("BALANCE_REPORT");
+			balanceList.setParamCode("LIST");
+			balanceList.setValue1("รายงานทั้งหมด");
+			systemParameterRepository.save(balanceList);
 		}
 		
 		SystemParameter cashBook = systemParameterRepository.findByParamGroupAndParamCode("FUNCTION", "CASH_BOOK");
@@ -293,6 +319,127 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 			healthCheck.setParamCode("HEALTH_CHECK");
 			healthCheck.setValue1("เงินค่าตรวจสุขภาพ");
 			systemParameterRepository.save(healthCheck);
+		}
+		
+		
+		SystemParameter cheque = systemParameterRepository.findByParamGroupAndParamCode("DROPDOWN_BALANCE", "CHEQUE");
+		if(null == cheque) {
+			cheque = new SystemParameter();
+			cheque.setCreateBy("SYSTEM");
+			cheque.setCreateDate(new Date());
+			cheque.setParamGroup("DROPDOWN_BALANCE");
+			cheque.setParamCode("CHEQUE");
+			cheque.setValue1("เช็ค");
+			cheque.setValue2("ฉบับ");
+			systemParameterRepository.save(cheque);
+		}
+		
+		SystemParameter order = systemParameterRepository.findByParamGroupAndParamCode("DROPDOWN_BALANCE", "ORDER");
+		if(null == order) {
+			order = new SystemParameter();
+			order.setCreateBy("SYSTEM");
+			order.setCreateDate(new Date());
+			order.setParamGroup("DROPDOWN_BALANCE");
+			order.setParamCode("ORDER");
+			order.setValue1("ธนาณัติ");
+			order.setValue2("ฉบับ");
+			systemParameterRepository.save(order);
+		}
+		
+		SystemParameter sPayment = systemParameterRepository.findByParamGroupAndParamCode("DROPDOWN_BALANCE", "SEC_PAYMENT");
+		if(null == sPayment) {
+			sPayment = new SystemParameter();
+			sPayment.setCreateBy("SYSTEM");
+			sPayment.setCreateDate(new Date());
+			sPayment.setParamGroup("DROPDOWN_BALANCE");
+			sPayment.setParamCode("SEC_PAYMENT");
+			sPayment.setValue1("ใบสำคัญรองจ่าย");
+			sPayment.setValue2("ฉบับ");
+			systemParameterRepository.save(sPayment);
+		}
+		
+		SystemParameter bCert = systemParameterRepository.findByParamGroupAndParamCode("DROPDOWN_BALANCE", "BORROW_CERT");
+		if(null == bCert) {
+			bCert = new SystemParameter();
+			bCert.setCreateBy("SYSTEM");
+			bCert.setCreateDate(new Date());
+			bCert.setParamGroup("DROPDOWN_BALANCE");
+			bCert.setParamCode("BORROW_CERT");
+			bCert.setValue1("สัญญารับรองการยืมเงิน");
+			bCert.setValue2("ฉบับ");
+			systemParameterRepository.save(bCert);
+		}
+		
+		SystemParameter bPayment = systemParameterRepository.findByParamGroupAndParamCode("DROPDOWN_BALANCE", "BILL_PAYMENT");
+		if(null == bPayment) {
+			bPayment = new SystemParameter();
+			bPayment.setCreateBy("SYSTEM");
+			bPayment.setCreateDate(new Date());
+			bPayment.setParamGroup("DROPDOWN_BALANCE");
+			bPayment.setParamCode("BILL_PAYMENT");
+			bPayment.setValue1("ใบเบิกเงินเพื่อจ่ายในราชการ");
+			bPayment.setValue2("ฉบับ");
+			systemParameterRepository.save(bPayment);
+		}
+		
+		SystemParameter book = systemParameterRepository.findByParamGroupAndParamCode("DROPDOWN_BALANCE", "BOOK");
+		if(null == book) {
+			book = new SystemParameter();
+			book.setCreateBy("SYSTEM");
+			book.setCreateDate(new Date());
+			book.setParamGroup("DROPDOWN_BALANCE");
+			book.setParamCode("BOOK");
+			book.setValue1("สมุดคู่ฝาก");
+			book.setValue2("เล่ม");
+			systemParameterRepository.save(book);
+		}
+		
+		SystemParameter book1 = systemParameterRepository.findByParamGroupAndParamCode("DROPDOWN_BALANCE", "BOOK1");
+		if(null == book1) {
+			book1 = new SystemParameter();
+			book1.setCreateBy("SYSTEM");
+			book1.setCreateDate(new Date());
+			book1.setParamGroup("DROPDOWN_BALANCE");
+			book1.setParamCode("BOOK1");
+			book1.setValue1("ธ.กรุงไทย ปทุมฯ(อุดหนุน)");
+			book1.setValue2("เล่ม");
+			systemParameterRepository.save(book1);
+		}
+		
+		SystemParameter book2 = systemParameterRepository.findByParamGroupAndParamCode("DROPDOWN_BALANCE", "BOOK2");
+		if(null == book2) {
+			book2 = new SystemParameter();
+			book2.setCreateBy("SYSTEM");
+			book2.setCreateDate(new Date());
+			book2.setParamGroup("DROPDOWN_BALANCE");
+			book2.setParamCode("BOOK2");
+			book2.setValue1("ธ.กรุงไทย ปทุมฯ(กองทุน)");
+			book2.setValue2("เล่ม");
+			systemParameterRepository.save(book2);
+		}
+		
+		SystemParameter book3 = systemParameterRepository.findByParamGroupAndParamCode("DROPDOWN_BALANCE", "BOOK3");
+		if(null == book3) {
+			book3 = new SystemParameter();
+			book3.setCreateBy("SYSTEM");
+			book3.setCreateDate(new Date());
+			book3.setParamGroup("DROPDOWN_BALANCE");
+			book3.setParamCode("BOOK3");
+			book3.setValue1("ธ.กรุงไทย สามโคก(ทุนฯ)");
+			book3.setValue2("เล่ม");
+			systemParameterRepository.save(book3);
+		}
+		
+		SystemParameter book4 = systemParameterRepository.findByParamGroupAndParamCode("DROPDOWN_BALANCE", "BOOK4");
+		if(null == book4) {
+			book4 = new SystemParameter();
+			book4.setCreateBy("SYSTEM");
+			book4.setCreateDate(new Date());
+			book4.setParamGroup("DROPDOWN_BALANCE");
+			book4.setParamCode("BOOK4");
+			book4.setValue1("ธ.กรุงไทย สามโคก(ทุนฯ)");
+			book4.setValue2("เล่ม");
+			systemParameterRepository.save(book4);
 		}
 	}
 	

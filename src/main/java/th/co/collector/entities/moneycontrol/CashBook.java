@@ -10,12 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-import th.co.collector.entities.BaseDomain;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "CASH_BOOK")
 @TableGenerator(name="GEN_CASH_BOOK", initialValue=0, allocationSize=1)
-public class CashBook extends BaseDomain{
+public class CashBook{
 
 	@Id
     @GeneratedValue(strategy=GenerationType.TABLE, generator="GEN_CASH_BOOK")
@@ -23,6 +23,7 @@ public class CashBook extends BaseDomain{
 	
 	private String transactionCode;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date entryDate;
 	
 	private String docNo;
@@ -40,93 +41,93 @@ public class CashBook extends BaseDomain{
 	private BigDecimal creditNbudget;
 	
 	private String remark;
-
-	protected Long getBookId() {
+	
+	private String recordBy;
+	private String reviewBy;
+	private String approveBy;
+	public Long getBookId() {
 		return bookId;
 	}
-
-	protected String getTransactionCode() {
+	public String getTransactionCode() {
 		return transactionCode;
 	}
-
-	protected Date getEntryDate() {
+	public Date getEntryDate() {
 		return entryDate;
 	}
-
-	protected String getDocNo() {
+	public String getDocNo() {
 		return docNo;
 	}
-
-	protected String getBookNo() {
+	public String getBookNo() {
 		return bookNo;
 	}
-
-	protected String getDescription() {
+	public String getDescription() {
 		return description;
 	}
-
-	protected BigDecimal getDebit() {
+	public BigDecimal getDebit() {
 		return debit;
 	}
-
-	protected BigDecimal getCreditBudget() {
+	public BigDecimal getCreditBudget() {
 		return creditBudget;
 	}
-
-	protected BigDecimal getCreditRevenue() {
+	public BigDecimal getCreditRevenue() {
 		return creditRevenue;
 	}
-
-	protected BigDecimal getCreditNbudget() {
+	public BigDecimal getCreditNbudget() {
 		return creditNbudget;
 	}
-
-	protected String getRemark() {
+	public String getRemark() {
 		return remark;
 	}
-
-	protected void setBookId(Long bookId) {
+	public String getRecordBy() {
+		return recordBy;
+	}
+	public String getReviewBy() {
+		return reviewBy;
+	}
+	public String getApproveBy() {
+		return approveBy;
+	}
+	public void setBookId(Long bookId) {
 		this.bookId = bookId;
 	}
-
-	protected void setTransactionCode(String transactionCode) {
+	public void setTransactionCode(String transactionCode) {
 		this.transactionCode = transactionCode;
 	}
-
-	protected void setEntryDate(Date entryDate) {
+	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
 	}
-
-	protected void setDocNo(String docNo) {
+	public void setDocNo(String docNo) {
 		this.docNo = docNo;
 	}
-
-	protected void setBookNo(String bookNo) {
+	public void setBookNo(String bookNo) {
 		this.bookNo = bookNo;
 	}
-
-	protected void setDescription(String description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	protected void setDebit(BigDecimal debit) {
+	public void setDebit(BigDecimal debit) {
 		this.debit = debit;
 	}
-
-	protected void setCreditBudget(BigDecimal creditBudget) {
+	public void setCreditBudget(BigDecimal creditBudget) {
 		this.creditBudget = creditBudget;
 	}
-
-	protected void setCreditRevenue(BigDecimal creditRevenue) {
+	public void setCreditRevenue(BigDecimal creditRevenue) {
 		this.creditRevenue = creditRevenue;
 	}
-
-	protected void setCreditNbudget(BigDecimal creditNbudget) {
+	public void setCreditNbudget(BigDecimal creditNbudget) {
 		this.creditNbudget = creditNbudget;
 	}
-
-	protected void setRemark(String remark) {
+	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public void setRecordBy(String recordBy) {
+		this.recordBy = recordBy;
+	}
+	public void setReviewBy(String reviewBy) {
+		this.reviewBy = reviewBy;
+	}
+	public void setApproveBy(String approveBy) {
+		this.approveBy = approveBy;
 	}
 	
 }

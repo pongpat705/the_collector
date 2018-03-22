@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,17 +37,28 @@ public class AppController {
 	SystemParameterRepository systemParameterRepository;
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	String index(Model model, Principal principal, Authentication authentication) {
+	String index(Model model, Principal principal, Authentication authentication, HttpServletRequest httpServletRequest) {
 		model.addAttribute("message", "Hello Worlds");
 		model.addAttribute("authorities",authentication);
 		
-		List<SystemParameter> moneyControlList = (List<SystemParameter>) systemParameterRepository.findByParamGroup("MONEY_CONTROL_FORM");
+		List<SystemParameter> moneyControlList = (List<SystemParameter>) systemParameterRepository.findByParamGroupOrderBySortNumber("MONEY_CONTROL_FORM");
 		Map<String, SystemParameter> moneyControlMap = moneyControlList.stream().collect(Collectors.toMap(SystemParameter::getParamCode, x->x));
 		model.addAttribute("moneyControlFroms", moneyControlMap);
 		
-		List<SystemParameter> functionList = (List<SystemParameter>) systemParameterRepository.findByParamGroup("FUNCTION");
+		List<SystemParameter> balanceReportList = (List<SystemParameter>) systemParameterRepository.findByParamGroupOrderBySortNumber("BALANCE_REPORT");
+		Map<String, SystemParameter> balanceReportMap = balanceReportList.stream().collect(Collectors.toMap(SystemParameter::getParamCode, x->x));
+		model.addAttribute("balanceReportMap", balanceReportMap);
+		
+		List<SystemParameter> functionList = (List<SystemParameter>) systemParameterRepository.findByParamGroupOrderBySortNumber("FUNCTION");
 		Map<String, SystemParameter> functionMap = functionList.stream().collect(Collectors.toMap(SystemParameter::getParamCode, x->x));
 		model.addAttribute("functions", functionMap);
+		
+		List<SystemParameter> balanceList = (List<SystemParameter>) systemParameterRepository.findByParamGroupOrderBySortNumber("DROPDOWN_BALANCE");
+		model.addAttribute("dropdown_balance", balanceList);
+		Map<String, SystemParameter> balanceMap = balanceList.stream().collect(Collectors.toMap(SystemParameter::getParamCode, x->x));
+		model.addAttribute("map_balance", balanceMap);
+		
+		model.addAttribute("context", httpServletRequest.getContextPath());
 		
 		return "index";
 	}

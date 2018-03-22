@@ -3,22 +3,18 @@
 angular
 	.module('app')
 		.controller('userCtrl', [	'$scope', '$http', '$localStorage', 
-									'$timeout', '$translate', '$auth', 
+									'$timeout', '$translate', 
 									'$state' , '$stateParams', 'Restangular', 
 									'toastr', '$rootScope', 'userService',
 									'$mdDialog',
   function userCtrl($scope, $http, $localStorage, 
-		  			$timeout, $translate, $auth, 
+		  			$timeout, $translate, 
 		  			$state, $stateParams, Restangular, 
 		  			toastr, $rootScope, userService,
 		  			$mdDialog) {
 	
 	$scope.$watch("init", function(){
-		if('' == $rootScope.currentUser){
-			$state.go('user.signout');
-		} else {
 			$scope.getAllUser(0, 20);
-		}
 		
 	});
 	
@@ -110,19 +106,15 @@ angular
             columnDefs: [
                 { name: 'userName', width: 150},
     			{ name: 'name', width: 50},
-    			{ name: 'studentId', width: 100},
-    			{ name: 'major', width: 100},
-    			{ name: 'years', width: 100},
-    			{ name: 'advisor', width: 100},
-    			{ name: 'hospital', width: 100},
     			 {
                     name : 'Edit',
                     cellTemplate : '<div class="ui-grid-cell-contents">' +
                                         '<button class="btn btn-xs btn-info" title="Edit this" ng-click="grid.appScope.patchUser(row.entity, $event);" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>' +
                                    '</div>',
                                    width: 100,
-                    enableCellEdit : false,
-                    visible : isRoleAdmin
+                    enableCellEdit : false
+//                    ,
+//                    visible : isRoleAdmin
                 },
                 {
                     name : 'Delete',
@@ -130,8 +122,9 @@ angular
                                         '<button class="btn btn-xs btn-danger" title="delete this" ng-click="grid.appScope.del(row.entity, $event);" ><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>' +
                                    '</div>',
                                    width: 100,
-                    enableCellEdit : false,
-                    visible : isRoleAdmin
+                    enableCellEdit : false
+//                    ,
+//                    visible : isRoleAdmin
                 }
     			
             ],

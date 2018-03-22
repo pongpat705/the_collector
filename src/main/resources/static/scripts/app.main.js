@@ -69,7 +69,9 @@ angular.module('app').controller('AppCtrl', ['$scope', '$http', '$localStorage',
 	
     $scope.moneyControlForms =  $rootScope.moneyControlForms;
     $scope.functions = $rootScope.functions;
-    $scope.userData - $rootScope.userData;
+    $scope.userData = $rootScope.userData;
+    
+    $scope.balanceReport = $rootScope.balanceReport;
 	
   }
 ]);

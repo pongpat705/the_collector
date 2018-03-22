@@ -10,12 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-import th.co.collector.entities.BaseDomain;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "MONEY_CONTROL")
 @TableGenerator(name="GEN_MONEY_CONTROL", initialValue=0, allocationSize=1)
-public class MoneyControl extends BaseDomain{
+public class MoneyControl{
 
 	@Id
     @GeneratedValue(strategy=GenerationType.TABLE, generator="GEN_MONEY_CONTROL")
@@ -23,6 +23,9 @@ public class MoneyControl extends BaseDomain{
 	
 	private String controlType;
 	
+	private String transCode;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date entryDate;
 	
 	private String docNo;
@@ -52,6 +55,30 @@ public class MoneyControl extends BaseDomain{
 	private BigDecimal subsidy;
 	
 	private String remark;
+	
+	private String recordBy;
+	private String reviewBy;
+	private String approveBy;
+	
+	
+	public String getReviewBy() {
+		return reviewBy;
+	}
+	public String getApproveBy() {
+		return approveBy;
+	}
+	public void setReviewBy(String reviewBy) {
+		this.reviewBy = reviewBy;
+	}
+	public void setApproveBy(String approveBy) {
+		this.approveBy = approveBy;
+	}
+	public String getRecordBy() {
+		return recordBy;
+	}
+	public void setRecordBy(String recordBy) {
+		this.recordBy = recordBy;
+	}
 
 	public Long getControlId() {
 		return controlId;
@@ -73,19 +100,19 @@ public class MoneyControl extends BaseDomain{
 		return description;
 	}
 
-	protected BigDecimal getCashIn() {
+	public BigDecimal getCashIn() {
 		return cashIn;
 	}
 
-	protected BigDecimal getCashOut() {
+	public BigDecimal getCashOut() {
 		return cashOut;
 	}
 
-	protected void setCashIn(BigDecimal cashIn) {
+	public void setCashIn(BigDecimal cashIn) {
 		this.cashIn = cashIn;
 	}
 
-	protected void setCashOut(BigDecimal cashOut) {
+	public void setCashOut(BigDecimal cashOut) {
 		this.cashOut = cashOut;
 	}
 
@@ -182,12 +209,20 @@ public class MoneyControl extends BaseDomain{
 		this.subsidy = subsidy;
 	}
 
-	protected String getRemark() {
+	public String getRemark() {
 		return remark;
 	}
 
-	protected void setRemark(String remark) {
+	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getTransCode() {
+		return transCode;
+	}
+
+	public void setTransCode(String transCode) {
+		this.transCode = transCode;
 	}
 	
 	

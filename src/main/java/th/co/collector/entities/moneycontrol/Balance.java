@@ -28,51 +28,51 @@ public class Balance{
 	
 	private String remark;
 
-	protected Long getBalanceId() {
+	public Long getBalanceId() {
 		return balanceId;
 	}
 
-	protected String getBalanceType() {
+	public String getBalanceType() {
 		return balanceType;
 	}
 
-	protected String getBalanceNumber() {
+	public String getBalanceNumber() {
 		return balanceNumber;
 	}
 
-	protected String getBalanceSuffix() {
+	public String getBalanceSuffix() {
 		return balanceSuffix;
 	}
 
-	protected BigDecimal getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
-	protected String getRemark() {
+	public String getRemark() {
 		return remark;
 	}
 
-	protected void setBalanceId(Long balanceId) {
+	public void setBalanceId(Long balanceId) {
 		this.balanceId = balanceId;
 	}
 
-	protected void setBalanceType(String balanceType) {
+	public void setBalanceType(String balanceType) {
 		this.balanceType = balanceType;
 	}
 
-	protected void setBalanceNumber(String balanceNumber) {
+	public void setBalanceNumber(String balanceNumber) {
 		this.balanceNumber = balanceNumber;
 	}
 
-	protected void setBalanceSuffix(String balanceSuffix) {
+	public void setBalanceSuffix(String balanceSuffix) {
 		this.balanceSuffix = balanceSuffix;
 	}
 
-	protected void setAmount(BigDecimal amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 
-	protected void setRemark(String remark) {
+	public void setRemark(String remark) {
 		this.remark = remark;
 	}
 }
