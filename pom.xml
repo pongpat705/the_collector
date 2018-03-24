@@ -90,6 +90,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports</artifactId>
+		    <version>6.5.1</version>
+		</dependency>
+		<dependency>
+	        <groupId>th_sarabun</groupId>
+	        <artifactId>system.lib</artifactId>
+	        <scope>system</scope>
+	        <version>1</version>
+	        <systemPath>${basedir}/src/main/resources/lib/th_sarabun.jar</systemPath>
+	    </dependency>
 	</dependencies>
 
 	<build>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BALANCE_REPORT" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="a25e955d-6bf4-4a41-81b0-c15c3f8525a8">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="DATE_YEAR" class="java.lang.Integer"/>
+	<parameter name="DATE_MONTH" class="java.lang.String"/>
+	<parameter name="DATE_DAY" class="java.lang.Integer"/>
+	<parameter name="AMPHUR" class="java.lang.String"/>
+	<parameter name="AMOUNT_TEXT" class="java.lang.String"/>
+	<parameter name="DEPARTMENT" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select 
+	balance_type as DESCRIPTION,
+	amount as AMOUNT,
+	remark as REMARK
+from balance]]>
+	</queryString>
+	<field name="DESCRIPTION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DESCRIPTION"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="balance"/>
+	</field>
+	<field name="AMOUNT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="AMOUNT"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="balance"/>
+	</field>
+	<field name="REMARK" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="REMARK"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="balance"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="141" splitType="Stretch">
+			<frame>
+				<reportElement x="-1" y="0" width="555" height="140" uuid="c259d924-c264-47a0-9a27-a52d28c89b62"/>
+				<box padding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textField>
+					<reportElement mode="Opaque" x="2" y="55" width="550" height="30" uuid="cd6f12cf-0a0f-4de6-812e-8f4fa031b806"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+						<font fontName="TH_SARABUN" size="16" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>ส่วนราชการ</b> "+$P{DEPARTMENT}+" <b>อำเภอ</b> "+$P{AMPHUR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="2" y="85" width="550" height="30" uuid="feab4bf5-e5ef-4eb0-bad4-d9b77d0bf3f0"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+						<font fontName="TH_SARABUN" size="16" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>ประจำวันที่</b> "+$P{DATE_DAY}+" <b>เดือน</b> "+$P{DATE_MONTH}+" <b>พ.ศ.</b>"+$P{DATE_YEAR}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="1" y="1" width="551" height="30" uuid="f458a775-28b4-49c1-8370-b3dd70e65911"/>
+					<textElement textAlignment="Center">
+						<font fontName="TH_SARABUN" size="22" isBold="true"/>
+					</textElement>
+					<text><![CDATA[รายงานคงเหลือประจำวัน]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="180" height="30" uuid="6801e8f9-4dcd-4ab7-8172-78821b2cb976"/>
+				<box padding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="TH_SARABUN" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[รายการ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="180" y="0" width="200" height="30" uuid="1d2aff3a-d843-4584-ad9b-34fb975a0f9a"/>
+				<box padding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="TH_SARABUN" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[จำนวนเงิน]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="380" y="0" width="175" height="30" uuid="b4851937-f918-4f10-91c7-ceb8f1fbfef6"/>
+				<box padding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="TH_SARABUN" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[หมายเหตุ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="380" y="0" width="175" height="20" isPrintWhenDetailOverflows="true" uuid="c1dd8ea8-b810-408e-a4ac-cce41ca689f1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="989d8cce-da39-4cd8-b7b2-808b6c38819b"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH_SARABUN" size="11"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REMARK}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="180" y="0" width="200" height="20" isPrintWhenDetailOverflows="true" uuid="757e8758-9c8d-4d63-994e-2698473d6182">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c00fe3f2-2dc0-4dfc-8381-1a39fca447ef"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH_SARABUN" size="11"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="180" height="20" isPrintWhenDetailOverflows="true" uuid="85b8d9ac-42f7-4ab0-8ccd-d93bd495916e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ab4dd74d-7446-4ffe-bcd3-a65c5fae7464"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="TH_SARABUN" size="11"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESCRIPTION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="375" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="94" uuid="052ce8ab-13bb-480e-8d9f-552dda6a7e39"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<staticText>
+					<reportElement mode="Opaque" x="1" y="33" width="552" height="30" uuid="08517a42-cccb-4978-947f-f39f4d2ec59e"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="TH_SARABUN" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA["ลงชื่อ ........................................................................................................."]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="1" y="2" width="552" height="30" uuid="0689bd61-07bf-449a-af91-06c8472a5c73"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH_SARABUN" size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["จำนวนเงิน "+$P{AMOUNT_TEXT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="2" y="61" width="550" height="30" uuid="55b95d9f-124a-4992-acdf-1258ebb6ca70"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH_SARABUN" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA["หัวหน้าหน่วยงานย่อย"]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement x="0" y="94" width="555" height="129" uuid="c00c277d-7b62-41f8-a584-1ebc40d8cb98"/>
+				<box padding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<staticText>
+					<reportElement mode="Opaque" x="1" y="1" width="552" height="60" uuid="a5e2f12f-bbe0-4599-8ed0-a59cf03406b0"/>
+					<box>
+						<topPen lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="TH_SARABUN" size="14" isBold="true"/>
+						<paragraph firstLineIndent="30" leftIndent="70" rightIndent="50"/>
+					</textElement>
+					<text><![CDATA["คณะกรรมการเก็บรักษาเงิน ได้ตรวจนับเงินและหลักฐานแทนตัวเงินที่ถูกต้องตามรายการข้างต้นแล้ว จึงได้รับฝากเก็บรักษาไว้ในลักษณะหีบห่อ"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="60" width="190" height="31" uuid="ac145ab1-dcff-4b28-874c-820306cd8bb6"/>
+					<box padding="1">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="TH_SARABUN" size="14"/>
+					</textElement>
+					<text><![CDATA[.......................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="190" y="60" width="200" height="31" uuid="813b77dc-950d-46aa-ae48-6ffac7adae98"/>
+					<box padding="1">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="TH_SARABUN" size="14"/>
+					</textElement>
+					<text><![CDATA[.......................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="390" y="60" width="162" height="31" uuid="39cc371d-4f81-4c92-9cfb-32e732a42380"/>
+					<box padding="1">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="TH_SARABUN" size="14"/>
+					</textElement>
+					<text><![CDATA[.......................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="1" y="91" width="189" height="31" uuid="4c2c6dd8-b669-44c7-b725-bdc758756088"/>
+					<box padding="1">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH_SARABUN" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA["กรรมการ"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="190" y="91" width="200" height="31" uuid="59364030-6039-4c70-b3ed-49962670bfd9"/>
+					<box padding="1">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH_SARABUN" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA["กรรมการ"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="390" y="91" width="162" height="31" uuid="deeee273-730b-4229-9bfb-752192022fcf"/>
+					<box padding="1">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH_SARABUN" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA["กรรมการ"]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement x="0" y="223" width="555" height="150" uuid="de03320f-4fe8-4d79-8a36-52dcde1ed5ae"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<staticText>
+					<reportElement mode="Opaque" x="2" y="2" width="546" height="30" uuid="2052026e-c2b5-48c6-9436-29ddb60543f7"/>
+					<box>
+						<topPen lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="TH_SARABUN" size="14" isBold="true"/>
+						<paragraph firstLineIndent="30" leftIndent="70" rightIndent="50"/>
+					</textElement>
+					<text><![CDATA["ข้าพเจ้า ผู้ได้รับมอบหมายได้รับเงินและเอกสารแทนตัวเงินตามรายละเอียดข้างต้นนี้ไปแล้ว"]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="2" y="30" width="547" height="30" uuid="7412db76-82f0-4c78-8c2c-7e83378dc3be"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="TH_SARABUN" size="14" isBold="true"/>
+						<paragraph firstLineIndent="30"/>
+					</textElement>
+					<textFieldExpression><![CDATA["เมื่อวันที่ "+"............"+" เดือน "+".........................."+" พ.ศ."+"............."]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="178" y="60" width="375" height="30" uuid="183c9fcd-3048-4333-86c6-e652a02ddc86"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="TH_SARABUN" size="14" isBold="true"/>
+						<paragraph firstLineIndent="0" rightIndent="80"/>
+					</textElement>
+					<textFieldExpression><![CDATA["............................................................ผู้รับเงิน"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="178" y="90" width="375" height="30" uuid="1ab4be13-1ad9-4fec-922f-dc8b42f843ae"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="TH_SARABUN" size="14" isBold="true"/>
+						<paragraph firstLineIndent="0" rightIndent="80"/>
+					</textElement>
+					<textFieldExpression><![CDATA["ลงชื่อ............................................................หัวหน้าหน่วยงานย่อย"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="365" y="120" width="185" height="30" uuid="0df0e07b-b79d-4858-b4ee-fcf50386fe2e"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="TH_SARABUN" size="14" isBold="true"/>
+						<paragraph firstLineIndent="0" rightIndent="80"/>
+					</textElement>
+					<textFieldExpression><![CDATA["ผู้รับมอบหมาย"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</columnFooter>
+</jasperReport>

@@ -65,7 +65,8 @@ public class UserController {
 		User user = userRepository.findById(userId).get();
 		UserBean userBean = new UserBean();
 		userBean.setName(user.getName());
-		
+		userBean.setUserName(user.getUserName());
+		userBean.setDivision(user.getDivision());
 		userBean.setPassword(user.getPassword());
 		
 		List<String> role = new ArrayList<String>();

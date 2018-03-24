@@ -1,6 +1,8 @@
 package th.co.collector.components;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
@@ -35,12 +37,36 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private SystemParameterRepository systemParameterRepository;
 	
+	public static Map<Integer, String> MONTH_TH;
+	
+	public static Map<Integer, String> getMONTH_TH() {
+		return MONTH_TH;
+	}
+
 	@PostConstruct
 	 public void settingData(){
 		initialRole();
-		
+		initCommon();
 		initialSystemParameter();
+		
+		
 	 }
+	
+	public void initCommon() {
+		MONTH_TH = new HashMap<>();
+		MONTH_TH.put(0, "มกราคม");
+		MONTH_TH.put(1, "กุมภาพันธ์คม");
+		MONTH_TH.put(2, "มีนาคม");
+		MONTH_TH.put(3, "เมษายน");
+		MONTH_TH.put(4, "พฤษภาคม");
+		MONTH_TH.put(5, "มิภุนายน");
+		MONTH_TH.put(6, "กรกฎาคม");
+		MONTH_TH.put(7, "สิงหาคม");
+		MONTH_TH.put(8, "กันยายน");
+		MONTH_TH.put(9, "ตุลาคม");
+		MONTH_TH.put(10, "พฤศจิกายน");
+		MONTH_TH.put(11, "ธันวาคม");
+	};
 	 
 	@Transactional
 	public void initialRole(){

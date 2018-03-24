@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import th.co.collector.constants.Role;
 import th.co.collector.entities.parameter.SystemParameter;
 import th.co.collector.repositories.parameter.SystemParameterRepository;
 import th.co.collector.repositories.user.UserRepository;
@@ -58,6 +59,9 @@ public class AppController {
 		Map<String, SystemParameter> balanceMap = balanceList.stream().collect(Collectors.toMap(SystemParameter::getParamCode, x->x));
 		model.addAttribute("map_balance", balanceMap);
 		
+		
+		model.addAttribute("role", Role.values());
+		
 		model.addAttribute("context", httpServletRequest.getContextPath());
 		
 		return "index";
@@ -75,5 +79,6 @@ public class AppController {
 		model.addAttribute("roleList", userRoleRepository.findByUser(userRepository.findById(id).get()));
 		return "user/role";
 	}
+	
 
 }

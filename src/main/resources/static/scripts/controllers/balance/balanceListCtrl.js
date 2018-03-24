@@ -44,28 +44,27 @@ angular
             enableAutoFitColumns: true,
             useExternalPagination: true,
             columnDefs: [
-                {name:'วันที่', field : 'createDate', width: 100, enableSorting: true},
-                {name:'ส่วนงานราชการ', field : 'department', width: 100},
-    			{name:'อำเภอ', field : 'amphur', width: 100},
-//    			 {
-//                    name : 'Edit',
-//                    cellTemplate : '<div class="ui-grid-cell-contents">' +
-//                                        '<button class="btn btn-xs btn-info" title="Edit this" ng-click="grid.appScope.patchUser(row.entity, $event);" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>' +
-//                                   '</div>',
-//                                   width: 100,
-//                    enableCellEdit : false
-////                    ,visible : isRoleAdmin
-//                },
-//                {
-//                    name : 'Delete',
-//                    cellTemplate : '<div class="ui-grid-cell-contents">' +
-//                                        '<button class="btn btn-xs btn-danger" title="delete this" ng-click="grid.appScope.del(row.entity, $event);" ><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>' +
-//                                   '</div>',
-//                                   width: 100,
-//                    enableCellEdit : false
-////                    ,visible : isRoleAdmin
-//                }
-    			
+                {name:'วันที่', field : 'createDate', enableSorting: true},
+                {name:'ส่วนงานราชการ', field : 'department'},
+    			{name:'อำเภอ', field : 'amphur'},
+    			{
+                    name : 'ดูรายงาน',
+                    cellTemplate : '<div class="ui-grid-cell-contents">' +
+                                        '<button class="btn btn-xs btn-primary" title="Edit this" ng-click="grid.appScope.viewReport(row.entity, $event);" ><i class="fa fa-file" aria-hidden="true"></i> ดู</button>' +
+                                   '</div>',
+                                   width: 100,
+                    enableCellEdit : false
+//                    ,visible : isRoleAdmin
+                },
+    			{
+                    name : 'พิมพ์รายงาน',
+                    cellTemplate : '<div class="ui-grid-cell-contents">' +
+                                        '<button class="btn btn-xs btn-danger" title="Edit this" ng-click="grid.appScope.printPdf(row.entity, $event);" ><i class="fa fa-print" aria-hidden="true"></i> พิมพ์</button>' +
+                                   '</div>',
+                                   width: 100,
+                    enableCellEdit : false
+//                    ,visible : isRoleAdmin
+                }
             ],
             onRegisterApi: function(gridApi) {
                $scope.gridApi = gridApi;
@@ -86,6 +85,14 @@ angular
                 });
             }
         };
+	
+	$scope.printPdf = function(e, ev){
+		console.log(e);
+	};
+	
+	$scope.viewReport = function(e, ev){
+		$state.go('app.balance.view',{balanceId:e.masterId},{reload:true});
+	};
 	
   }
 ]);

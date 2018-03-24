@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import th.co.collector.entities.TransCode;
+import th.co.collector.entities.moneycontrol.Balance;
 import th.co.collector.entities.moneycontrol.BalanceMaster;
 import th.co.collector.entities.moneycontrol.CashBook;
 import th.co.collector.entities.moneycontrol.MoneyControl;
@@ -142,11 +143,26 @@ public class FormRestController {
 		
 		balanceMaster.setCreateDate(entryDate);;
 		
+		BigDecimal amountSum 			= new BigDecimal(BigDecimal.ZERO.toString());
+		for (Balance balance : balanceMaster.getBalances()) {
+			amountSum = amountSum.add(balance.getAmount());
+		}
+		Balance balanceSum = new Balance();
+		balanceSum.setAmount(amountSum);
+		balanceSum.setRemark("SUM");
+		balanceMaster.getBalances().add(balanceSum);
 		balanceMasterRepository.save(balanceMaster);
+		
 		
 		sResponse.setStatus(HttpStatus.CREATED.value());
 		
 	}
+	
+	@RequestMapping(value="/getBalanceMaster", method=RequestMethod.GET)
+	public BalanceMaster getBalanceMaster(@RequestParam Long masterId) {
+		return balanceMasterRepository.findById(masterId).get();
+	}
+	
 	
 
 }

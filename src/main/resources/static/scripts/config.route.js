@@ -65,6 +65,20 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams',
                   }]);
               }]
             }
+      }).state('app.balance.view',{
+    	  url: '/{balanceId:int}',
+          templateUrl: './views/app/balance/balance.html',
+          controller: 'balanceViewCtrl',
+      	resolve: {
+              deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load([{
+                    files: [
+                    		'./scripts/services/form/formService.js',
+                            './scripts/controllers/balance/balanceViewCtrl.js'
+                            ]
+                  }]);
+              }]
+            }
       }).state('app.balance.list',{
     	  url: '/list',
           templateUrl: './views/app/balance/balanceList.html',

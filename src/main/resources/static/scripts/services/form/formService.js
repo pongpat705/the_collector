@@ -30,6 +30,9 @@ angular.module('app').factory('formService',
       },
       saveBalanceMaster : function(balanceMaster){
     	  return $http.post(_CONTEXT+'/service/saveBalanceMaster',balanceMaster);
+      },
+      loadBalanceMaster : function(masterId){
+    	  return $http.get(_CONTEXT+'/service/getBalanceMaster?masterId='+masterId);
       }
     };
 }]);

@@ -2,27 +2,37 @@
 'use strict';
 angular
 	.module('app')
-		.controller('balanceCtrl', [	'$scope', '$http', '$localStorage', 
-									'$timeout', '$translate', 
+		.controller('balanceViewCtrl', [	'$scope', '$http', '$localStorage', 
+									'$timeout', '$translate', '$window',
 									'$state' , '$stateParams', 'Restangular', 
 									'toastr', '$rootScope', 'formService',
-  function balanceCtrl($scope, $http, $localStorage, 
-		  			$timeout, $translate, 
+  function balanceViewCtrl($scope, $http, $localStorage, 
+		  			$timeout, $translate, $window,
 		  			$state, $stateParams, Restangular, 
 		  			toastr, $rootScope, formService) {
 	
 	$scope.$watch("init", function(){
-		$scope.functions = $rootScope.functions;
+		$scope.loadBlanceReport();
 	});
-	
-	$scope.mode = 'add';
+	$scope.mode = 'view';
 	
 	$scope.dropdownBalance = $rootScope.dropdownBalance;
 	$scope.mapBalance = $rootScope.mapBalance;
-	
+//	
 	$scope.balanceList = [];
 	$scope.balanceRow = null;
 	$scope.balance = {};
+	
+	$scope.loadBlanceReport = function(){
+		console.log($stateParams.balanceId);
+		formService.loadBalanceMaster($stateParams.balanceId).then(function(response){
+			$scope.balance = response.data;
+			$scope.balanceList = response.data.balances;
+		}).catch(function(response){
+			console.error('Error',response);
+ 			toastr.error(response.data.message, 'Error');
+		});
+	};
 	$scope.deleteFromList = function(index){
 		$scope.balanceList.splice(index, 1);
 	};
@@ -37,12 +47,14 @@ angular
 		
 		formService.saveBalanceMaster($scope.balance).then(function(response){
 			toastr.success('saved');
-			$scope.balanceList = [];
-			$scope.balance = {};
 		}).catch(function(response) {
  			console.error('Error',response);
  			toastr.error(response.data.message, 'Error');
 		});
+	};
+	
+	$scope.printPdf = function(e){
+		 $window.location.href = _CONTEXT+'/balance/'+e.masterId+'/pdf';
 	};
 	
   }

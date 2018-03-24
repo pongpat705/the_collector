@@ -50,7 +50,7 @@ angular
 		    .then(function() {
 		    	$scope.getAllUser(paginationOptions.pageNumber, paginationOptions.pageSize);
 		    }, function() {
-		    	log.info('dialog closed');
+		    	console.log('dialog closed');
 		    });
 	}
 	$scope.patchUser = function(e, ev){
@@ -69,7 +69,7 @@ angular
 		    .then(function() {
 		    	$scope.getAllUser(paginationOptions.pageNumber, paginationOptions.pageSize);
 		    }, function() {
-		    	log.info('dialog closed');
+		    	console.log('dialog closed');
 		    });
 	}
 	$scope.del = function(e, ev){
@@ -93,7 +93,7 @@ angular
 				toastr.error(response.data.message, 'Error');
 		    });
 	    }, function() {
-	    	log.info('deleting canceled');
+	    	console.log('deleting canceled');
 	    });
 	};
 	
@@ -104,14 +104,13 @@ angular
             enableAutoFitColumns: true,
             useExternalPagination: true,
             columnDefs: [
-                { name: 'userName', width: 150},
-    			{ name: 'name', width: 50},
+                { name: 'userName'},
+    			{ name: 'name'},
     			 {
                     name : 'Edit',
                     cellTemplate : '<div class="ui-grid-cell-contents">' +
                                         '<button class="btn btn-xs btn-info" title="Edit this" ng-click="grid.appScope.patchUser(row.entity, $event);" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>' +
                                    '</div>',
-                                   width: 100,
                     enableCellEdit : false
 //                    ,
 //                    visible : isRoleAdmin
@@ -121,7 +120,6 @@ angular
                     cellTemplate : '<div class="ui-grid-cell-contents">' +
                                         '<button class="btn btn-xs btn-danger" title="delete this" ng-click="grid.appScope.del(row.entity, $event);" ><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>' +
                                    '</div>',
-                                   width: 100,
                     enableCellEdit : false
 //                    ,
 //                    visible : isRoleAdmin
@@ -149,8 +147,7 @@ angular
 	
 	function DialogController($scope, $rootScope, $mdDialog, userService, toastr, mode) {
 		$scope.mode = mode;
-		$scope.combo = $rootScope.comboBox;
-		$scope.param = $rootScope.param;
+		$scope.combo = _ROLE;
 		
 		$scope.user = {};
 		$scope.user.role = [];
@@ -184,8 +181,7 @@ angular
 	
 	function PatchDialogController($scope, $rootScope, $mdDialog, userService, toastr, userId, mode) {
 		$scope.mode = mode;
-		$scope.combo = $rootScope.comboBox;
-		$scope.param = $rootScope.param;
+		$scope.combo = _ROLE;
 		
 		
 		userService.getUserForpatch(userId).then(function(response){
