@@ -49,35 +49,35 @@ public class Chest{
 	}
 	
 
-	protected Long getChestId() {
+	public Long getChestId() {
 		return chestId;
 	}
 
-	protected Long getAccountCode() {
+	public Long getAccountCode() {
 		return accountCode;
 	}
 
-	protected String getAccountName() {
+	public String getAccountName() {
 		return accountName;
 	}
 
-	protected BigDecimal getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 
-	protected void setChestId(Long chestId) {
+	public void setChestId(Long chestId) {
 		this.chestId = chestId;
 	}
 
-	protected void setAccountCode(Long accountCode) {
+	public void setAccountCode(Long accountCode) {
 		this.accountCode = accountCode;
 	}
 
-	protected void setAccountName(String accountName) {
+	public void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
 
-	protected void setBalance(BigDecimal balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 	

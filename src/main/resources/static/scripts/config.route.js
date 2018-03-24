@@ -93,6 +93,20 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams',
                   }]);
               }]
             }
+      }).state('app.income',{
+    	  url: '/income',
+          templateUrl: './views/app/schoolbudget/income.html',
+          controller: 'incomeCtrl',
+      	resolve: {
+              deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load([{
+                    files: [
+                    		'./scripts/services/form/formService.js',
+                            './scripts/controllers/schoolbudget/incomeCtrl.js'
+                            ]
+                  }]);
+              }]
+            }
       }).state('app.form', {
 	        abstract: true,
 	        url: '/form',

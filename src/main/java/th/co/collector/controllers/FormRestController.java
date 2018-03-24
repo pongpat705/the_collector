@@ -19,8 +19,10 @@ import th.co.collector.entities.moneycontrol.Balance;
 import th.co.collector.entities.moneycontrol.BalanceMaster;
 import th.co.collector.entities.moneycontrol.CashBook;
 import th.co.collector.entities.moneycontrol.MoneyControl;
+import th.co.collector.entities.moneycontrol.SchoolBudget;
 import th.co.collector.repositories.BalanceMasterRepository;
 import th.co.collector.repositories.CashBookRepository;
+import th.co.collector.repositories.SchoolBudgetRepository;
 import th.co.collector.repositories.form.MoneyControlRepository;
 import th.co.collector.services.CommonService;
 
@@ -39,6 +41,9 @@ public class FormRestController {
 	
 	@Autowired
 	BalanceMasterRepository balanceMasterRepository;
+	
+	@Autowired
+	SchoolBudgetRepository budgetRepository;
 	
 	@RequestMapping(value="/saveMoneyControl", method=RequestMethod.POST)
 	public void saveMoneyControl(@RequestParam String controlType, @RequestBody List<MoneyControl> moneyControlList, HttpServletResponse sResponse) {
@@ -153,6 +158,19 @@ public class FormRestController {
 		balanceMaster.getBalances().add(balanceSum);
 		balanceMasterRepository.save(balanceMaster);
 		
+		
+		sResponse.setStatus(HttpStatus.CREATED.value());
+		
+	}
+	
+	@RequestMapping(value="/saveSchoolBudget", method=RequestMethod.POST)
+	public void saveSchoolBudget(@RequestBody SchoolBudget schoolBudget, HttpServletResponse sResponse) {
+		
+		Date entryDate = new Date();
+		
+		schoolBudget.setEntryDate(entryDate);
+		
+		budgetRepository.save(schoolBudget);
 		
 		sResponse.setStatus(HttpStatus.CREATED.value());
 		

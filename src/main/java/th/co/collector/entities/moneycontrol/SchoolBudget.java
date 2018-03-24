@@ -23,6 +23,8 @@ public class SchoolBudget{
 	
 	private String docNo;
 	
+	private String recordNo;
+	
 	private String description;
 	
 	private BigDecimal income;
@@ -60,83 +62,89 @@ public class SchoolBudget{
 		this.recordBy = recordBy;
 	}
 
-	protected Long getBudgetId() {
+	public Long getBudgetId() {
 		return budgetId;
 	}
 
-	protected Date getEntryDate() {
+	public Date getEntryDate() {
 		return entryDate;
 	}
 
-	protected String getDocNo() {
+	public String getDocNo() {
 		return docNo;
 	}
 
-	protected String getDescription() {
+	public String getDescription() {
 		return description;
 	}
 
-	protected BigDecimal getIncome() {
+	public BigDecimal getIncome() {
 		return income;
 	}
 
-	protected BigDecimal getExtra() {
+	public BigDecimal getExtra() {
 		return extra;
 	}
 
-	protected BigDecimal getInterest() {
+	public BigDecimal getInterest() {
 		return interest;
 	}
 
-	protected BigDecimal getOther() {
+	public BigDecimal getOther() {
 		return other;
 	}
 
-	protected BigDecimal getSum() {
+	public BigDecimal getSum() {
 		return sum;
 	}
 
-	protected String getRemark() {
+	public String getRemark() {
 		return remark;
 	}
 
-	protected void setBudgetId(Long budgetId) {
+	public void setBudgetId(Long budgetId) {
 		this.budgetId = budgetId;
 	}
 
-	protected void setEntryDate(Date entryDate) {
+	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
 	}
 
-	protected void setDocNo(String docNo) {
+	public void setDocNo(String docNo) {
 		this.docNo = docNo;
 	}
 
-	protected void setDescription(String description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	protected void setIncome(BigDecimal income) {
+	public void setIncome(BigDecimal income) {
 		this.income = income;
 	}
 
-	protected void setExtra(BigDecimal extra) {
+	public void setExtra(BigDecimal extra) {
 		this.extra = extra;
 	}
 
-	protected void setInterest(BigDecimal interest) {
+	public void setInterest(BigDecimal interest) {
 		this.interest = interest;
 	}
 
-	protected void setOther(BigDecimal other) {
+	public void setOther(BigDecimal other) {
 		this.other = other;
 	}
 
-	protected void setSum(BigDecimal sum) {
+	public void setSum(BigDecimal sum) {
 		this.sum = sum;
 	}
 
-	protected void setRemark(String remark) {
+	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public String getRecordNo() {
+		return recordNo;
+	}
+	public void setRecordNo(String recordNo) {
+		this.recordNo = recordNo;
 	}
 }
