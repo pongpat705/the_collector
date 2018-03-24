@@ -14,9 +14,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import th.co.collector.constants.Role;
+import th.co.collector.entities.chest.Chest;
 import th.co.collector.entities.parameter.SystemParameter;
 import th.co.collector.entities.user.User;
 import th.co.collector.entities.user.UserRole;
+import th.co.collector.repositories.ChestRepository;
 import th.co.collector.repositories.parameter.SystemParameterRepository;
 import th.co.collector.repositories.user.UserRepository;
 import th.co.collector.repositories.user.UserRoleRepository;
@@ -36,6 +38,9 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private SystemParameterRepository systemParameterRepository;
+	
+	@Autowired
+	private ChestRepository chestRepository;
 	
 	public static Map<Integer, String> MONTH_TH;
 	
@@ -463,9 +468,41 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 			book4.setCreateDate(new Date());
 			book4.setParamGroup("DROPDOWN_BALANCE");
 			book4.setParamCode("BOOK4");
-			book4.setValue1("ธ.กรุงไทย สามโคก(ทุนฯ)");
+			book4.setValue1("ธ.กรุงไทย สามโคก(รายได้)");
 			book4.setValue2("เล่ม");
 			systemParameterRepository.save(book4);
+		}
+		
+		Chest chest1 = chestRepository.findByAccountCode(book1.getParamCode());
+		if(null == chest1) {
+			chest1 = new Chest();
+			chest1.setAccountCode(book1.getParamCode());
+			chest1.setAccountName(book1.getValue1());
+			chestRepository.save(chest1);
+		}
+		
+		Chest chest2 = chestRepository.findByAccountCode(book2.getParamCode());
+		if(null == chest2) {
+			chest2 = new Chest();
+			chest2.setAccountCode(book2.getParamCode());
+			chest2.setAccountName(book2.getValue1());
+			chestRepository.save(chest2);
+		}
+		
+		Chest chest3 = chestRepository.findByAccountCode(book3.getParamCode());
+		if(null == chest3) {
+			chest3 = new Chest();
+			chest3.setAccountCode(book3.getParamCode());
+			chest3.setAccountName(book3.getValue1());
+			chestRepository.save(chest3);
+		}
+		
+		Chest chest4 = chestRepository.findByAccountCode(book4.getParamCode());
+		if(null == chest4) {
+			chest4 = new Chest();
+			chest4.setAccountCode(book4.getParamCode());
+			chest4.setAccountName(book4.getValue1());
+			chestRepository.save(chest4);
 		}
 	}
 	

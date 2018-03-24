@@ -33,6 +33,9 @@ angular.module('app').factory('formService',
       },
       loadBalanceMaster : function(masterId){
     	  return $http.get(_CONTEXT+'/service/getBalanceMaster?masterId='+masterId);
+      },
+      saveSchoolBudget : function(saveSchoolBudget){
+    	  return $http.post(_CONTEXT+'/service/saveSchoolBudget',saveSchoolBudget);
       }
     };
 }]);

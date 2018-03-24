@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "SCHOOL_BUDGET")
 @TableGenerator(name="GEN_SCHOOL_BUDGET", initialValue=0, allocationSize=1)
@@ -19,6 +21,7 @@ public class SchoolBudget{
     @GeneratedValue(strategy=GenerationType.TABLE, generator="GEN_SCHOOL_BUDGET")
     private Long budgetId;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date entryDate;
 	
 	private String docNo;

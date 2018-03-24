@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import th.co.collector.entities.TransCode;
+import th.co.collector.entities.chest.Chest;
 import th.co.collector.entities.moneycontrol.Balance;
 import th.co.collector.entities.moneycontrol.BalanceMaster;
 import th.co.collector.entities.moneycontrol.CashBook;
@@ -22,6 +23,7 @@ import th.co.collector.entities.moneycontrol.MoneyControl;
 import th.co.collector.entities.moneycontrol.SchoolBudget;
 import th.co.collector.repositories.BalanceMasterRepository;
 import th.co.collector.repositories.CashBookRepository;
+import th.co.collector.repositories.ChestRepository;
 import th.co.collector.repositories.SchoolBudgetRepository;
 import th.co.collector.repositories.form.MoneyControlRepository;
 import th.co.collector.services.CommonService;
@@ -44,6 +46,9 @@ public class FormRestController {
 	
 	@Autowired
 	SchoolBudgetRepository budgetRepository;
+	
+	@Autowired
+	ChestRepository chestRepository;
 	
 	@RequestMapping(value="/saveMoneyControl", method=RequestMethod.POST)
 	public void saveMoneyControl(@RequestParam String controlType, @RequestBody List<MoneyControl> moneyControlList, HttpServletResponse sResponse) {
@@ -164,13 +169,23 @@ public class FormRestController {
 	}
 	
 	@RequestMapping(value="/saveSchoolBudget", method=RequestMethod.POST)
-	public void saveSchoolBudget(@RequestBody SchoolBudget schoolBudget, HttpServletResponse sResponse) {
+	public void saveSchoolBudget(@RequestBody List<SchoolBudget> schoolBudgetList, HttpServletResponse sResponse) {
 		
 		Date entryDate = new Date();
 		
-		schoolBudget.setEntryDate(entryDate);
+		BigDecimal amountSum 			= new BigDecimal(BigDecimal.ZERO.toString());
+		for (SchoolBudget schoolBudget : schoolBudgetList) {
+			schoolBudget.setEntryDate(entryDate);
+			
+			amountSum = amountSum.add(schoolBudget.getSum());
+		}
 		
-		budgetRepository.save(schoolBudget);
+		budgetRepository.saveAll(schoolBudgetList);
+		
+		Chest chest4 = chestRepository.findByAccountCode("BOOK4");
+		chest4.setBalance(amountSum);
+		
+		chestRepository.save(chest4);
 		
 		sResponse.setStatus(HttpStatus.CREATED.value());
 		

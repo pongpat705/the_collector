@@ -18,7 +18,7 @@ public class Chest{
     @GeneratedValue(strategy=GenerationType.TABLE, generator="GEN_CHEST")
     private Long chestId;
 	
-	private Long accountCode;
+	private String accountCode;
 	
 	private String accountName;
 	
@@ -53,7 +53,7 @@ public class Chest{
 		return chestId;
 	}
 
-	public Long getAccountCode() {
+	public String getAccountCode() {
 		return accountCode;
 	}
 
@@ -69,7 +69,7 @@ public class Chest{
 		this.chestId = chestId;
 	}
 
-	public void setAccountCode(Long accountCode) {
+	public void setAccountCode(String accountCode) {
 		this.accountCode = accountCode;
 	}
 

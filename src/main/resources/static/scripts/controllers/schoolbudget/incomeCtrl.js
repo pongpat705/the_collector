@@ -15,6 +15,9 @@ angular
 		$scope.loadIncomeList();
 	});
 	
+	$scope.budgetList = [];
+	$scope.budget = null;
+	
 	var paginationOptions = {
 	        pageNumber: 0,
 	        pageSize: 20,
@@ -28,7 +31,7 @@ angular
 	$scope.loadIncomeList = function(){
 		var param = {'page':paginationOptions.pageNumber, 'size':paginationOptions.pageSize, 'sort':paginationOptions.sort, 'createDate.dir':paginationOptions.direction};
 		formService.genericGetSort(paginationOptions.link, param).then(function(response){
-			$scope.incomeGridOptions.data = response.data._embedded.schoolBudget;
+			$scope.incomeGridOptions.data = response.data._embedded.schoolBudgets;
 			$scope.incomeGridOptions.totalItems = response.data.page.totalElements;
 		}).catch(function(response){
 			console.error('Error',response);
@@ -36,6 +39,36 @@ angular
 		});
 	};
 	
+	$scope.deleteFromList = function(index){
+		$scope.budgetList.splice(index, 1);
+	};
+	
+	$scope.addToList = function(){
+		$scope.budgetList.push($scope.budget);
+		$scope.budget = null;
+	};
+	
+	$scope.save = function(){
+		formService.saveSchoolBudget($scope.budgetList).then(function(response){
+			toastr.success('saved');
+			$scope.budgetList = [];
+			$scope.loadIncomeList();
+		}).catch(function(response) {
+ 			console.error('Error',response);
+ 			toastr.error(response.data.message, 'Error');
+		});
+	};
+	
+	$scope.recordChange = function(e){
+		var income = e.income ? e.income:0;
+		var extra = e.extra ? e.extra:0;
+		var interest = e.interest ? e.interest :0;
+		var other = e.other ? e.other :0;
+		
+		var sum = income+extra+interest+other;
+		
+		e.sum = sum;
+	}
 	
 	$scope.incomeGridOptions = {
             paginationPageSizes: [5, 10, 20],
@@ -48,7 +81,7 @@ angular
                 {name:'เอกสารเลขที่', field : 'docNo'},
     			{name:'เล่มที่', field : 'recordNo'},
     			{name:'รายการ', field : 'description'},
-    			{name:'เงินรายได้สถานศึกษา', field : 'incom'},
+    			{name:'เงินรายได้สถานศึกษา', field : 'income'},
     			{name:'ผลประโยชน์อื่น ๆ', field : 'extra'},
     			{name:'ดอกเบี้ย', field : 'interest'},
     			{name:'เงินรายได้อื่น ๆ', field : 'other'},

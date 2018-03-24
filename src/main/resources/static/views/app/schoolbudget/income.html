@@ -1,6 +1,6 @@
 <div class="p-x m-t-lg">
   <div class="row">
- 		<div  ui-grid="cashbookGridOptions" class="grid" ui-grid-pagination ui-grid-resize-columns>
+ 		<div  ui-grid="incomeGridOptions" class="grid" ui-grid-pagination ui-grid-resize-columns>
   		</div>
   </div>
   <div class="row">
@@ -8,42 +8,44 @@
   			<thead>
   				<tr>
   					<th>วันที่</th>
-  					<th>เอกสารเลขที่</th>
+  					<th>ที่เอกสาร</th>
   					<th>เล่มที่</th>
   					<th>รายการ</th>
-  					<th>เดบิต</th>
-  					<th>เงินงบประมาณ</th>
-  					<th>เงินรายได้แผ่นดิน</th>
-  					<th>เงินนอกงบประมาณ</th>
+  					<th>เงินรายได้สถานศึกษา</th>
+  					<th>ผลประโยชน์อื่น ๆ</th>
+  					<th>ดอกเบี้ย</th>
+  					<th>เงินรายได้อื่น ๆ</th>
+  					<th>รวม</th>
   					<th>หมายเหตุ</th>
-  					<th>เพิ่ม</th>
-  					<th>ลบ</th>
+  					<th></th>
   				</tr>
   			</thead>
   			<tbody>
-  				<tr ng-repeat="c in cashbookList">
+  				<tr ng-repeat="c in budgetList">
   					<td><input type="text" class="form-control date" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="" name="entryDate" ng-model="c.entryDate"></td>
   					<td><input type="text" class="form-control" placeholder="" name="docNo" ng-model="c.docNo"></td>
-  					<td><input type="text" class="form-control" placeholder="" name="bookNo" ng-model="c.bookNo"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="recordNo" ng-model="c.recordNo"></td>
   					<td><input type="text" class="form-control" placeholder="" name="description" ng-model="c.description"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="debit" ng-model="c.debit"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditBudget" ng-model="c.creditBudget"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditRevenue" ng-model="c.creditRevenue"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditNbudget" ng-model="c.creditNbudget"></td>
+  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(e)" name="income" ng-model="c.income"></td>
+  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(e)" name="extra" ng-model="c.extra"></td>
+  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(e)" name="interest" ng-model="c.interest"></td>
+  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(e)" name="other" ng-model="c.other"></td>
+  					<td><input type="number" class="form-control" placeholder="" name="sum" ng-model="c.sum"></td>
   					<td><input type="text" class="form-control" placeholder="" name="remark" ng-model="c.remark"></td>
   					<td></td>
   					<td><button class="btn btn-danger" ng-click="deleteFromList($index)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
   				</tr>
   				<tr>
-  					<td><input type="text" class="form-control date" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="" name="entryDate" ng-model="cashbook.entryDate"></td>
-  					<td><input type="text" class="form-control" placeholder="" name="docNo" ng-model="cashbook.docNo"></td>
-  					<td><input type="text" class="form-control" placeholder="" name="bookNo" ng-model="cashbook.bookNo"></td>
-  					<td><input type="text" class="form-control" placeholder="" name="description" ng-model="cashbook.description"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="debit" ng-model="cashbook.debit"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditBudget" ng-model="cashbook.creditBudget"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditRevenue" ng-model="cashbook.creditRevenue"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditNbudget" ng-model="cashbook.creditNbudget"></td>
-  					<td><input type="text" class="form-control" placeholder="" name="remark" ng-model="cashbook.remark"></td>
+  					<td><input type="text" class="form-control date" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="" name="entryDate" ng-model="budget.entryDate"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="docNo" ng-model="budget.docNo"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="recordNo" ng-model="budget.recordNo"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="description" ng-model="budget.description"></td>
+  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(budget)" name="income" ng-model="budget.income"></td>
+  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(budget)"  name="extra" ng-model="budget.extra"></td>
+  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(budget)" name="interest" ng-model="budget.interest"></td>
+  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(budget)" name="other" ng-model="budget.other"></td>
+  					<td><input type="number" class="form-control" placeholder="" name="sum" ng-model="budget.sum"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="remark" ng-model="budget.remark"></td>
   					<td><button class="btn btn-primary" ng-click="addToList()" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
   					<td></td>
   				</tr>
