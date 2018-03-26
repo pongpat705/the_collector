@@ -13,13 +13,20 @@
 <div class="heading">
 	<ul class="nav navbar-nav">
 		<li >
+			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.landing" aria-haspopup="true" aria-expanded="true">
+				<i class="fa fa-rss" aria-hidden="true"></i>
+				<span >หน้าหลัก</span> 
+			</a>	
+		</li>
+		<li >
 			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.cashbook" aria-haspopup="true" aria-expanded="true">
-				<i class="fa fa-bars" aria-hidden="true"></i>
+				<i class="fa fa-money" aria-hidden="true"></i>
 				<span >{{functions.CASH_BOOK.value1}}</span> 
 			</a>	
 		</li>	
 		<li class="uib-dropdown dropdown open" uib-dropdown>
 			<a style="color:#000;" href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true"> 
+				<i class="fa fa-file-text-o" aria-hidden="true"></i>
 				<span >{{functions.BALANCE_REPORT.value1}}</span> 
 				<span class="caret"></span>
 			</a>	
@@ -38,22 +45,23 @@
 		</li>	
 		<li >
 			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.income" aria-haspopup="true" aria-expanded="true">
-				<i class="fa fa-bars" aria-hidden="true"></i>
+				<i class="fa fa-angle-double-down" aria-hidden="true"></i>
 				<span >{{functions.SCHOOL_INCOME.value1}}</span> 
 			</a>	
 		</li>	
 		<li >
 			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.import" aria-haspopup="true" aria-expanded="true">
-				<i class="fa fa-bars" aria-hidden="true"></i>
+				<i class="fa fa-exchange" aria-hidden="true"></i>
 				<span >{{functions.IMPORT_DATA.value1}}</span> 
 			</a>	
 		</li>	
 		<li class="uib-dropdown dropdown open" uib-dropdown>
-			<a style="color:#000;" href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true"> 
+			<a style="color:#000;" href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle aria-haspopup="true" aria-expanded="true"> 
+				<i class="fa fa-files-o" aria-hidden="true"></i>
 				<span >{{functions.MONEY_CONTROL_FORM.value1}}</span> 
 				<span class="caret"></span>
 			</a>			
-			<ul class="dropdown-menu dropdown-menu">
+			<ul class="dropdown-menu dropdown-menu" uib-dropdown-menu>
 				<li>
 					<a style="color:#000;" ui-sref="app.form.nbudget">
 				        <span>{{moneyControlForms.N_BUDGET.value1}}</span>
@@ -118,7 +126,7 @@
 		</li>
 		<li >
 			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.user" aria-haspopup="true" aria-expanded="true">
-				<i class="fa fa-bars" aria-hidden="true"></i>
+				<i class="fa fa-user-secret" aria-hidden="true"></i>
 				<span >{{functions.MANAGE_USER.value1}}</span> 
 			</a>	
 		</li>	
@@ -129,16 +137,10 @@
 				<span >{{userData.name}}</span> 
 				<span class="caret"></span>
 			</a>			
-			<ul class="dropdown-menu dropdown-menu" uib-dropdown-menu="" ng-if="!isAuthenticated()">
+
+			<ul class="dropdown-menu dropdown-menu" uib-dropdown-menu="" >
 				<li>
-					<a style="color:#000;" ui-sref="user.signin">
-				        <span>เข้าสู่ระบบ</span>
-			     	</a>	
-				</li>
-			</ul>	
-			<ul class="dropdown-menu dropdown-menu" uib-dropdown-menu="" ng-if="isAuthenticated()">
-				<li>
-					<a style="color:#000;" ui-sref="user.signin" href="#/signin">ออกจากระบบ</a>
+					<a style="color:#000;" ng-click="logout()">ออกจากระบบ</a>
 				</li>
 			</ul>			
 		</li>

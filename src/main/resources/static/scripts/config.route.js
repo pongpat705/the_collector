@@ -27,7 +27,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams',
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                   return $ocLazyLoad.load([{
                       files: [
-                    	  	  './scripts/services/patientServices.js',
+                    	  	  './scripts/services/form/formService.js',
                               './scripts/controllers/landing/landingCtrl.js'
                               ]
                     }]);
@@ -238,15 +238,15 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams',
               }]
             }
       }).state('app.form.contact',{
-    	  url: '/contact',
+    	  url: '/contract',
           templateUrl: './views/app/form/nbudget.html',
-          controller: 'contactCtrl',
+          controller: 'contractCtrl',
       	resolve: {
               deps: ['$ocLazyLoad', function($ocLazyLoad) {
                 return $ocLazyLoad.load([{
                     files: [
                     		'./scripts/services/form/formService.js',
-                            './scripts/controllers/form/contactCtrl.js'
+                            './scripts/controllers/form/contractCtrl.js'
                             ]
                   }]);
               }]

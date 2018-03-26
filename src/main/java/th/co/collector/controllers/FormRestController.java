@@ -2,7 +2,9 @@ package th.co.collector.controllers;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -194,6 +196,19 @@ public class FormRestController {
 	@RequestMapping(value="/getBalanceMaster", method=RequestMethod.GET)
 	public BalanceMaster getBalanceMaster(@RequestParam Long masterId) {
 		return balanceMasterRepository.findById(masterId).get();
+	}
+	
+	@RequestMapping(value="/getChestBalance", method=RequestMethod.GET)
+	public Map<String, Object> getChestBalance() {
+		Map<String, Object> amount = new HashMap<>();
+		Iterable<Chest> chestList = chestRepository.findAll();
+		for (Chest chest : chestList) {
+			if(null == chest.getBalance()) {
+				chest.setBalance(new BigDecimal(BigDecimal.ZERO.toString()));
+			}
+			amount.put(chest.getAccountCode(), chest);
+		}
+		return amount;
 	}
 	
 	

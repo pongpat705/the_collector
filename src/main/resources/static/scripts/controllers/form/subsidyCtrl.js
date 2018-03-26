@@ -2,11 +2,11 @@
 'use strict';
 angular
 	.module('app')
-		.controller('nbudgetCtrl', [	'$scope', '$http', '$localStorage', 
+		.controller('subsidyCtrl', [	'$scope', '$http', '$localStorage', 
 									'$timeout', '$translate', 
 									'$state' , '$stateParams', 'Restangular', 
 									'toastr', '$rootScope', 'formService',
-  function nbudgetCtrl($scope, $http, $localStorage, 
+  function subsidyCtrl($scope, $http, $localStorage, 
 		  			$timeout, $translate, 
 		  			$state, $stateParams, Restangular, 
 		  			toastr, $rootScope, formService) {
@@ -14,6 +14,18 @@ angular
 	$scope.$watch("init", function(){
 		$scope.getAllNbutGet();
 	});
+	
+	var paginationOptions = {
+	        pageNumber: 0,
+	        pageSize: 20,
+	        sort: 'entryDate',
+	        sortDirectColumn : 'entryDate.dir',
+	        direction : 'desc',
+	        link:_CONTEXT+'/api/moneyControls/search/findByControlType',
+	        controlType : 'SUBSIDY'
+    };
+	
+	$scope.paginationOptions = paginationOptions;
 	
 	$scope.moneyControlList = [];
 	$scope.moneyControl = null;
@@ -36,15 +48,6 @@ angular
 		$scope.moneyControl = null;
 	};
 	
-	var paginationOptions = {
-	        pageNumber: 0,
-	        pageSize: 20,
-	        sort: 'entryDate',
-	        sortDirectColumn : 'entryDate.dir',
-	        direction : 'desc',
-	        link:_CONTEXT+'/api/moneyControls/search/findByControlType',
-	        controlType : 'SUBSIDY'
-    };
 	
 	$scope.save = function(){
 		formService.saveMoneyControl(paginationOptions.controlType, $scope.moneyControlList).then(function(response){

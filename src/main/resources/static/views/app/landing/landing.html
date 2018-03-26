@@ -1,16 +1,23 @@
 
 <div class="p-x">
   <div class="row">
-  	
-  </div>
-  <br>
-  <div class="row">
-				
-				<div class="col-xs-12 col-sm-12">
-					<button class="btn btn-md btn-info m-t-lg full-w" ng-click="selecTrack();" >{{param.PATIENT_MENU['PM_01'].infoTh}}</button>
-					<button class="btn btn-md btn-info m-t-lg full-w" ng-click="selectMenu(param.PATIENT_MENU['PM_02'].infoCode);" >{{param.PATIENT_MENU['PM_02'].infoTh}}</button>
-					<button class="btn btn-md btn-info m-t-lg full-w" ng-click="selectMenu(param.PATIENT_MENU['PM_03'].infoCode);" >{{param.PATIENT_MENU['PM_03'].infoTh}}</button>
-					<button class="btn btn-md btn-info m-t-lg full-w" ng-click="selectMenu(param.PATIENT_MENU['PM_04'].infoCode);" >{{param.PATIENT_MENU['PM_04'].infoTh}}</button>
-				</div>
+  	<div class="row text-center">
+		<div class="col-sm-3 col-xs-6 p-t p-b">
+			<h4 class="m-t-0 m-b-0">{{balance['BOOK1'].balance}}$</h4>
+			<small class="text-muted bold">{{balance['BOOK1'].accountName}}</small>
+		</div>
+		<div class="col-sm-3 col-xs-6 p-t p-b">
+			<h4 class="m-t-0 m-b-0">{{balance['BOOK2'].balance}}$</h4>
+			<small class="text-muted bold">{{balance['BOOK2'].accountName}}</small>
+		</div>
+		<div class="col-sm-3 col-xs-6 p-t p-b">
+			<h4 class="m-t-0 m-b-0">{{balance['BOOK3'].balance}}$</h4>
+			<small class="text-muted bold">{{balance['BOOK3'].accountName}}</small>
+		</div>
+		<div class="col-sm-3 col-xs-6 p-t p-b">
+			<h4 class="m-t-0 m-b-0">{{balance['BOOK4'].balance}}$</h4>
+			<small class="text-muted bold">{{balance['BOOK4'].accountName}}</small>
+		</div>
+	</div>
   </div>
 </div>

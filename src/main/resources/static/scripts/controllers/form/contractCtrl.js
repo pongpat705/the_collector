@@ -45,6 +45,7 @@ angular
 	        link:_CONTEXT+'/api/moneyControls/search/findByControlType',
 	        controlType : 'CONTRACT_COLLATERAL'
     };
+	$scope.paginationOptions = paginationOptions;
 	
 	$scope.save = function(){
 		formService.saveMoneyControl(paginationOptions.controlType, $scope.moneyControlList).then(function(response){

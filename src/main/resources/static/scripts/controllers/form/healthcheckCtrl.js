@@ -2,11 +2,11 @@
 'use strict';
 angular
 	.module('app')
-		.controller('nbudgetCtrl', [	'$scope', '$http', '$localStorage', 
+		.controller('healthcheckCtrl', [	'$scope', '$http', '$localStorage', 
 									'$timeout', '$translate', 
 									'$state' , '$stateParams', 'Restangular', 
 									'toastr', '$rootScope', 'formService',
-  function nbudgetCtrl($scope, $http, $localStorage, 
+  function healthcheckCtrl($scope, $http, $localStorage, 
 		  			$timeout, $translate, 
 		  			$state, $stateParams, Restangular, 
 		  			toastr, $rootScope, formService) {
@@ -45,6 +45,8 @@ angular
 	        link:_CONTEXT+'/api/moneyControls/search/findByControlType',
 	        controlType : 'HEALTH_CHECK'
     };
+	
+	$scope.paginationOptions = paginationOptions;
 	
 	$scope.save = function(){
 		formService.saveMoneyControl(paginationOptions.controlType, $scope.moneyControlList).then(function(response){

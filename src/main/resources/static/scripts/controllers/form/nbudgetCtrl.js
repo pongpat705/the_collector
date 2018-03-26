@@ -15,6 +15,17 @@ angular
 		$scope.getAllNbutGet();
 	});
 	
+	var paginationOptions = {
+	        pageNumber: 0,
+	        pageSize: 20,
+	        sort: 'entryDate',
+	        sortDirectColumn : 'entryDate.dir',
+	        direction : 'desc',
+	        link:_CONTEXT+'/api/moneyControls/search/findByControlType',
+	        controlType : 'N_BUDGET'
+    };
+	
+	$scope.paginationOptions = paginationOptions;
 	$scope.moneyControlList = [];
 	$scope.moneyControl = null;
 	
@@ -36,15 +47,7 @@ angular
 		$scope.moneyControl = null;
 	};
 	
-	var paginationOptions = {
-	        pageNumber: 0,
-	        pageSize: 20,
-	        sort: 'entryDate',
-	        sortDirectColumn : 'entryDate.dir',
-	        direction : 'desc',
-	        link:_CONTEXT+'/api/moneyControls/search/findByControlType',
-	        controlType : 'N_BUDGET'
-    };
+	
 	
 	$scope.save = function(){
 		formService.saveMoneyControl(paginationOptions.controlType, $scope.moneyControlList).then(function(response){
@@ -83,14 +86,14 @@ angular
     			{name:'รายรับ', field : 'cashIn'},
     			{name:'รายจ่าย', field : 'cashOut'},
     			{name:'คงเหลือ', field : 'balance'},
-    			{name:'ลูกจ้างชั่วคราว', field : 'temporary'},
-    			{name:'ค่าตอบแทน', field : 'compensation'},
-    			{name:'ค่าใช้สอย', field : 'usability'},
-    			{name:'ค่าสาธารณูปโภค', field : 'utility'},
-    			{name:'ค่าวัสดุ', field : 'material'},
-    			{name:'ค่าครภัณฑ์', field : 'durable'},
-    			{name:'ค่าที่ดินสิ่งก่อสร้าง', field : 'landBuild'},
-    			{name:'เงินอุดหนุน', field : 'subsidy'},
+//    			{name:'ลูกจ้างชั่วคราว', field : 'temporary'},
+//    			{name:'ค่าตอบแทน', field : 'compensation'},
+//    			{name:'ค่าใช้สอย', field : 'usability'},
+//    			{name:'ค่าสาธารณูปโภค', field : 'utility'},
+//    			{name:'ค่าวัสดุ', field : 'material'},
+//    			{name:'ค่าครภัณฑ์', field : 'durable'},
+//    			{name:'ค่าที่ดินสิ่งก่อสร้าง', field : 'landBuild'},
+//    			{name:'เงินอุดหนุน', field : 'subsidy'},
     			{name:'หมายเหตุ', field : 'remark'}
 //    			 {
 //                    name : 'Edit',

@@ -1,8 +1,8 @@
 'use strict';
-angular.module('app').controller('AppCtrl', ['$scope', '$http', '$localStorage', '$timeout', '$translate', 
+angular.module('app').controller('AppCtrl', ['$scope', '$http', '$localStorage', '$timeout', '$translate', '$window',
 //	'$auth', 
 	'$stateParams', '$state', '$rootScope',
-  function AppCtrl($scope, $http, $localStorage, $timeout, $translate, 
+  function AppCtrl($scope, $http, $localStorage, $timeout, $translate, $window,
 //		  $auth, 
 		  $state, $stateParams, $rootScope) {
     $scope.mobileView = 767;
@@ -72,6 +72,10 @@ angular.module('app').controller('AppCtrl', ['$scope', '$http', '$localStorage',
     $scope.userData = $rootScope.userData;
     
     $scope.balanceReport = $rootScope.balanceReport;
+    
+    $scope.logout = function(){
+    	$window.location.href = _CONTEXT+'/out';
+    };
 	
   }
 ]);
