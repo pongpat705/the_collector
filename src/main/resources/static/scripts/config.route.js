@@ -311,6 +311,52 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams',
 	                }]);
 	            }]
 	          }
+	      }).state('app.mobilize', {
+		        abstract: true,
+		        url: '/mobilize',
+		        template: '<div ui-view=""></div>'
+	      }).state('app.mobilize.draft',{
+	    	  url: '/draft',
+	          templateUrl: './views/app/mobilize/mobilize.html',
+	          controller: 'mobilizeCtrl',
+	      	resolve: {
+	              deps: ['$ocLazyLoad', function($ocLazyLoad) {
+	                return $ocLazyLoad.load([{
+	                    files: [
+	                    		'./scripts/services/form/formService.js',
+	                            './scripts/controllers/mobilize/mobilizeCtrl.js'
+	                            ]
+	                  }]);
+	              }]
+	            }
+	      }).state('app.mobilize.view',{
+	    	  url: '/{mobilizeId:int}',
+	          templateUrl: './views/app/mobilize/mobilize.html',
+	          controller: 'mobilizeViewCtrl',
+	      	resolve: {
+	              deps: ['$ocLazyLoad', function($ocLazyLoad) {
+	                return $ocLazyLoad.load([{
+	                    files: [
+	                    		'./scripts/services/form/formService.js',
+	                            './scripts/controllers/mobilize/mobilizeViewCtrl.js'
+	                            ]
+	                  }]);
+	              }]
+	            }
+	      }).state('app.mobilize.list',{
+	    	  url: '/list',
+	          templateUrl: './views/app/mobilize/mobilizeList.html',
+	          controller: 'mobilizeListCtrl',
+	      	resolve: {
+	              deps: ['$ocLazyLoad', function($ocLazyLoad) {
+	                return $ocLazyLoad.load([{
+	                    files: [
+	                    		'./scripts/services/form/formService.js',
+	                            './scripts/controllers/mobilize/mobilizeListCtrl.js'
+	                            ]
+	                  }]);
+	              }]
+	            }
 	      })
 //      .state('user', {
 //        templateUrl: './views/common/session.html',

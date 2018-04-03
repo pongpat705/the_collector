@@ -50,17 +50,26 @@ angular
   })
   .run(['$http', '$rootScope', '$q', '$uibModalStack', '$state', 'PermissionStore', '$sessionStorage', 'Restangular',
         function($http, $rootScope, $q, $uibModalStack, $state, PermissionStore, $sessionStorage, Restangular) {
-	  
 	  $rootScope.userData = _USER_DATA;
 	  $rootScope.functions = _FUNCTION;
 	  $rootScope.moneyControlForms = _MONEY_CONTROL_FORM;
 	  
+	  $rootScope.kv = {};
+	  angular.forEach(_USER_DATA.authorities, function(value, key) {
+		  var k = value.authority;
+		  $rootScope.kv[k] = k;
+	  });
+	  
+	  
 	  $rootScope.balanceReport = _BALANCE_REPORT;
+	  
+	  $rootScope.mobilize = _MOBILIZE;
 	  
 	  $rootScope.dropdownBookbank = _DROPDOWN_BOOKBANK;
 	  $rootScope.dropdownBalance = _DROPDOWN_BALANCE;
 	  $rootScope.mapBookBank = _MAP_BOOKBANK;
 	  $rootScope.mapBalance = _MAP_BALANCE;
+	  
 	  
 	  $rootScope.$on('$stateChangeStart',  function(event, toState, toParams, fromState, fromParams, options){
 		  $uibModalStack.dismissAll();
@@ -79,8 +88,8 @@ angular
 	  });
 	  
 	  $rootScope.checkPermission = function(permission){
-		  var permissions = PermissionStore.getStore();
-		  if (null == permissions[permission]) {
+		  
+		  if (null == $rootScope.kv[permission]) {
 			  return false;
 		  }
 		  return true;

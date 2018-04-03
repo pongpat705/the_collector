@@ -504,6 +504,39 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 			chest4.setAccountName(book4.getValue1());
 			chestRepository.save(chest4);
 		}
+		
+		SystemParameter mobilize = systemParameterRepository.findByParamGroupAndParamCode("FUNCTION", "MOBILIZE");
+		if(null == mobilize) {
+			mobilize = new SystemParameter();
+			mobilize.setCreateBy("SYSTEM");
+			mobilize.setCreateDate(new Date());
+			mobilize.setParamGroup("FUNCTION");
+			mobilize.setParamCode("MOBILIZE");
+			mobilize.setValue1("ใบแจ้งระดมทรัพยากร");
+			systemParameterRepository.save(mobilize);
+		}
+		
+		SystemParameter mobilizeList = systemParameterRepository.findByParamGroupAndParamCode("MOBILIZE", "LIST");
+		if(null == mobilizeList) {
+			mobilizeList = new SystemParameter();
+			mobilizeList.setCreateBy("SYSTEM");
+			mobilizeList.setCreateDate(new Date());
+			mobilizeList.setParamGroup("MOBILIZE");
+			mobilizeList.setParamCode("LIST");
+			mobilizeList.setValue1("รายการ");
+			systemParameterRepository.save(mobilizeList);
+		}
+		
+		SystemParameter draftReport = systemParameterRepository.findByParamGroupAndParamCode("MOBILIZE", "DRAFT");
+		if(null == draftReport) {
+			draftReport = new SystemParameter();
+			draftReport.setCreateBy("SYSTEM");
+			draftReport.setCreateDate(new Date());
+			draftReport.setParamGroup("MOBILIZE");
+			draftReport.setParamCode("DRAFT");
+			draftReport.setValue1("สร้าง");
+			systemParameterRepository.save(draftReport);
+		}
 	}
 	
 }

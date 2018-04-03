@@ -5,6 +5,7 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 
 import th.co.collector.entities.chest.Chest;
+import th.co.collector.entities.mobilize.MobilizeMaster;
 import th.co.collector.entities.moneycontrol.BalanceMaster;
 import th.co.collector.entities.moneycontrol.CashBook;
 import th.co.collector.entities.moneycontrol.MoneyControl;
@@ -17,7 +18,7 @@ public class RepositoryConfiguration extends RepositoryRestConfigurerAdapter{
 
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-		config.exposeIdsFor(User.class, UserRole.class, BalanceMaster.class, CashBook.class, MoneyControl.class, SchoolBudget.class, Chest.class);
+		config.exposeIdsFor(User.class, UserRole.class, BalanceMaster.class, CashBook.class, MoneyControl.class, SchoolBudget.class, Chest.class, MobilizeMaster.class);
 	}
 	
 }

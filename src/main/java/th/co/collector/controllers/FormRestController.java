@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import th.co.collector.entities.TransCode;
 import th.co.collector.entities.chest.Chest;
+import th.co.collector.entities.mobilize.Mobilize;
+import th.co.collector.entities.mobilize.MobilizeMaster;
 import th.co.collector.entities.moneycontrol.Balance;
 import th.co.collector.entities.moneycontrol.BalanceMaster;
 import th.co.collector.entities.moneycontrol.CashBook;
@@ -26,6 +28,7 @@ import th.co.collector.entities.moneycontrol.SchoolBudget;
 import th.co.collector.repositories.BalanceMasterRepository;
 import th.co.collector.repositories.CashBookRepository;
 import th.co.collector.repositories.ChestRepository;
+import th.co.collector.repositories.MobilizeReporsitory;
 import th.co.collector.repositories.SchoolBudgetRepository;
 import th.co.collector.repositories.form.MoneyControlRepository;
 import th.co.collector.services.CommonService;
@@ -51,6 +54,9 @@ public class FormRestController {
 	
 	@Autowired
 	ChestRepository chestRepository;
+	
+	@Autowired
+	MobilizeReporsitory mobilizeMasterRepository;
 	
 	@RequestMapping(value="/saveMoneyControl", method=RequestMethod.POST)
 	public void saveMoneyControl(@RequestParam String controlType, @RequestBody List<MoneyControl> moneyControlList, HttpServletResponse sResponse) {
@@ -209,6 +215,41 @@ public class FormRestController {
 			amount.put(chest.getAccountCode(), chest);
 		}
 		return amount;
+	}
+	
+	
+	@RequestMapping(value="/saveMobilizeMaster", method=RequestMethod.POST)
+	public void saveMobilizeMaster(@RequestBody MobilizeMaster mobilizeMaster, HttpServletResponse sResponse) {
+		
+		Date entryDate = new Date();
+		
+		mobilizeMaster.setCreatedDate(entryDate);;
+		Boolean hasSum = false;
+		BigDecimal amountSum 			= new BigDecimal(BigDecimal.ZERO.toString());
+		for (Mobilize mobilize : mobilizeMaster.getMobilizes()) {
+			if(!"SUM".equals(mobilize.getDescription())) {
+				amountSum = amountSum.add(mobilize.getAmount());
+			} else {
+				hasSum = true;
+			}
+		}
+		if(hasSum) {
+			mobilizeMaster.getMobilizes().remove(mobilizeMaster.getMobilizes().size()-1);
+		}
+		Mobilize balanceSum = new Mobilize();
+		balanceSum.setAmount(amountSum);
+		balanceSum.setDescription("SUM");
+		mobilizeMaster.getMobilizes().add(balanceSum);
+		mobilizeMasterRepository.save(mobilizeMaster);
+		
+		
+		sResponse.setStatus(HttpStatus.CREATED.value());
+		
+	}
+	
+	@RequestMapping(value="/getMobilizeMaster", method=RequestMethod.GET)
+	public MobilizeMaster getMobilizeMaster(@RequestParam Long mobilizeId) {
+		return mobilizeMasterRepository.findById(mobilizeId).get();
 	}
 	
 	

@@ -62,6 +62,10 @@ public class AppController {
 		Map<String, SystemParameter> balanceMap = balanceList.stream().collect(Collectors.toMap(SystemParameter::getParamCode, x->x));
 		model.addAttribute("map_balance", balanceMap);
 		
+		List<SystemParameter> mobilizeList = (List<SystemParameter>) systemParameterRepository.findByParamGroupOrderBySortNumber("MOBILIZE");
+		Map<String, SystemParameter> mobilizeMap = mobilizeList.stream().collect(Collectors.toMap(SystemParameter::getParamCode, x->x));
+		model.addAttribute("mobilizeMap", mobilizeMap);
+		
 		
 		model.addAttribute("role", Role.values());
 		

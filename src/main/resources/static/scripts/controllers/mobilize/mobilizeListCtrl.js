@@ -2,34 +2,34 @@
 'use strict';
 angular
 	.module('app')
-		.controller('balanceListCtrl', [	'$scope', '$http', '$localStorage', 
+		.controller('mobilizeListCtrl', [	'$scope', '$http', '$localStorage', 
 									'$timeout', '$translate', 
 									'$state' , '$stateParams', 'Restangular', 
 									'toastr', '$rootScope', 'formService',
-  function balanceListCtrl($scope, $http, $localStorage, 
+  function mobilizeListCtrl($scope, $http, $localStorage, 
 		  			$timeout, $translate, 
 		  			$state, $stateParams, Restangular, 
 		  			toastr, $rootScope, formService) {
 	
 	$scope.$watch("init", function(){
-		$scope.loadBalanceList();
+		$scope.loadMobilizeList();
 	});
 	
 	var paginationOptions = {
 	        pageNumber: 0,
 	        pageSize: 20,
-	        sort: 'createDate',
-	        sortDirectColumn : 'createDate.dir',
+	        sort: 'createdDate',
+	        sortDirectColumn : 'createdDate.dir',
 	        direction : 'desc',
-	        link:_CONTEXT+'/api/balanceMasters'
+	        link:_CONTEXT+'/api/mobilizeMasters'
     };
 	
 	
-	$scope.loadBalanceList = function(){
+	$scope.loadMobilizeList = function(){
 		var param = {'page':paginationOptions.pageNumber, 'size':paginationOptions.pageSize, 'sort':paginationOptions.sort, 'createDate.dir':paginationOptions.direction};
 		formService.genericGetSort(paginationOptions.link, param).then(function(response){
-			$scope.balanceGridOptions.data = response.data._embedded.balanceMasters;
-			$scope.balanceGridOptions.totalItems = response.data.page.totalElements;
+			$scope.mobilizeGridOptions.data = response.data._embedded.mobilizeMasters;
+			$scope.mobilizeGridOptions.totalItems = response.data.page.totalElements;
 		}).catch(function(response){
 			console.error('Error',response);
  			toastr.error(response.data.message, 'Error');
@@ -37,16 +37,14 @@ angular
 	};
 	
 	
-	$scope.balanceGridOptions = {
+	$scope.mobilizeGridOptions = {
             paginationPageSizes: [5, 10, 20],
             paginationPageSize: paginationOptions.pageSize,
             enableColumnMenus:false,
             enableAutoFitColumns: true,
             useExternalPagination: true,
             columnDefs: [
-                {name:'วันที่', field : 'createDate', enableSorting: true},
-                {name:'ส่วนงานราชการ', field : 'department'},
-    			{name:'อำเภอ', field : 'amphur'},
+                {name:'วันที่', field : 'createdDate', enableSorting: true},
     			{
                     name : 'ดูรายงาน',
                     cellTemplate : '<div class="ui-grid-cell-contents">' +
@@ -76,8 +74,8 @@ angular
                    
                    var param = {'page':paginationOptions.pageNumber, 'size':paginationOptions.pageSize, 'sort':paginationOptions.sort, 'createDate.dir':paginationOptions.direction};
                    formService.genericGetSort(paginationOptions.link, param).then(function(response){
-           			$scope.balanceGridOptions.data = response.data._embedded.balanceMasters;
-           			$scope.balanceGridOptions.totalItems = response.data.page.totalElements;
+           			$scope.mobilizeGridOptions.data = response.data._embedded.mobilizeMasters;
+           			$scope.mobilizeGridOptions.totalItems = response.data.page.totalElements;
     	       		}).catch(function(response) {
     	       			console.error('Error',response);
     	       			toastr.error(response.data.message, 'Error');
@@ -87,11 +85,11 @@ angular
         };
 	
 	$scope.printPdf = function(e, ev){
-		 $window.location.href = _CONTEXT+'/balance/'+e.masterId+'/pdf';
+		 $window.location.href = _CONTEXT+'/mobilize/'+e.mobilizeId+'/pdf';
 	};
 	
 	$scope.viewReport = function(e, ev){
-		$state.go('app.balance.view',{balanceId:e.masterId},{reload:true});
+		$state.go('app.mobilize.view',{mobilizeId:e.mobilizeId},{reload:true});
 	};
 	
   }

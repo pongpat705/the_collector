@@ -36,6 +36,12 @@ angular.module('app').factory('formService',
       },
       saveSchoolBudget : function(saveSchoolBudget){
     	  return $http.post(_CONTEXT+'/service/saveSchoolBudget',saveSchoolBudget);
+      },
+      saveMobilizeMaster : function(mobilizeMaster){
+    	  return $http.post(_CONTEXT+'/service/saveMobilizeMaster',mobilizeMaster);
+      },
+      loadMobilizeMaster : function(mobilizeId){
+    	  return $http.get(_CONTEXT+'/service/getMobilizeMaster?mobilizeId='+mobilizeId);
       }
     };
 }]);
