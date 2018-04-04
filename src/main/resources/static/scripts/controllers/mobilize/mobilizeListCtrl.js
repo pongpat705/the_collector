@@ -3,11 +3,11 @@
 angular
 	.module('app')
 		.controller('mobilizeListCtrl', [	'$scope', '$http', '$localStorage', 
-									'$timeout', '$translate', 
+									'$timeout', '$translate',  '$window',
 									'$state' , '$stateParams', 'Restangular', 
 									'toastr', '$rootScope', 'formService',
   function mobilizeListCtrl($scope, $http, $localStorage, 
-		  			$timeout, $translate, 
+		  			$timeout, $translate, $window,
 		  			$state, $stateParams, Restangular, 
 		  			toastr, $rootScope, formService) {
 	

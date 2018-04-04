@@ -3,11 +3,11 @@
 angular
 	.module('app')
 		.controller('balanceListCtrl', [	'$scope', '$http', '$localStorage', 
-									'$timeout', '$translate', 
+									'$timeout', '$translate', '$window',
 									'$state' , '$stateParams', 'Restangular', 
 									'toastr', '$rootScope', 'formService',
   function balanceListCtrl($scope, $http, $localStorage, 
-		  			$timeout, $translate, 
+		  			$timeout, $translate, $window,
 		  			$state, $stateParams, Restangular, 
 		  			toastr, $rootScope, formService) {
 	
