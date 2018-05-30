@@ -22,8 +22,6 @@ angular
     'ngTouch',
     'pascalprecht.translate',
     'n3-line-chart',
-    'textAngular',
-//    'satellizer',
     'permission', 'permission.ui', 
     'restangular', 
     'toastr',

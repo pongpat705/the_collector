@@ -42,6 +42,13 @@ public class Security extends WebSecurityConfigurerAdapter {
 			.antMatchers("/syscomponent/**").permitAll()
 			.antMatchers("/api/**").authenticated()
 			.anyRequest().authenticated()
+			.and()
+				.formLogin()
+				.loginPage("/login")
+				.permitAll()
+			.and()
+            	.logout()                                    
+                .permitAll();
 		
 			;
 		super.configure(http);

@@ -12,6 +12,7 @@ angular
 		  			toastr, $rootScope, formService) {
 	
 	$scope.$watch("init", function(){
+		$scope.formName = $rootScope.moneyControlForms.FOREIGN_TEACHER.value1;
 		$scope.getAllNbutGet();
 	});
 	

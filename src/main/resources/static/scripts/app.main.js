@@ -1,8 +1,8 @@
 'use strict';
-angular.module('app').controller('AppCtrl', ['$scope', '$http', '$localStorage', '$timeout', '$translate', '$window',
+angular.module('app').controller('AppCtrl', ['$scope', '$http', '$localStorage', '$timeout', '$window',
 //	'$auth', 
 	'$stateParams', '$state', '$rootScope',
-  function AppCtrl($scope, $http, $localStorage, $timeout, $translate, $window,
+  function AppCtrl($scope, $http, $localStorage, $timeout, $window,
 //		  $auth, 
 		  $state, $stateParams, $rootScope) {
     $scope.mobileView = 767;
