@@ -52,7 +52,7 @@ angular
 	};
 	
 	$scope.printPdf = function(e){
-		 $window.location.href = _CONTEXT+'/mobilize/'+e.masterId+'/pdf';
+		 $window.location.href = _CONTEXT+'/mobilize/'+e.mobilizeId+'/pdf';
 	};
 	
   }

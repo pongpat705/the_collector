@@ -12,139 +12,139 @@
 
 <div class="heading">
 	<ul class="nav navbar-nav">
-		<li >
-			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.landing" aria-haspopup="true" aria-expanded="true">
+		<li ng-class="{'active':isCurrentState('app.landing')}" >
+			<a href="javascript:;" ui-sref-active="active" ui-sref="app.landing" aria-haspopup="true" aria-expanded="true">
 				<i class="fa fa-rss" aria-hidden="true"></i>
 				<span >หน้าหลัก</span> 
 			</a>	
 		</li>
-		<li >
-			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.cashbook" aria-haspopup="true" aria-expanded="true">
+		<li ng-class="{'active':isCurrentState('app.cashbook')}">
+			<a href="javascript:;" ui-sref-active="active" ui-sref="app.cashbook" aria-haspopup="true" aria-expanded="true">
 				<i class="fa fa-money" aria-hidden="true"></i>
 				<span >{{functions.CASH_BOOK.value1}}</span> 
 			</a>	
 		</li>	
 		<li class="uib-dropdown dropdown open" uib-dropdown>
-			<a style="color:#000;" href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true"> 
+			<a href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true"> 
 				<i class="fa fa-file-text-o" aria-hidden="true"></i>
 				<span >{{functions.BALANCE_REPORT.value1}}</span> 
 				<span class="caret"></span>
 			</a>	
 			<ul class="dropdown-menu dropdown-menu">
-				<li>
-					<a style="color:#000;" ui-sref="app.balance.list">
+				<li ng-class="{'active':isCurrentState('app.balance.list')}">
+					<a ui-sref="app.balance.list">
 				        <span>{{balanceReport.LIST.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.balance.make">
+				<li ng-if="checkPermission('ROLE_MAKER')" ng-class="{'active':isCurrentState('app.balance.make')}">
+					<a ui-sref="app.balance.make">
 				        <span>{{balanceReport.MAKE.value1}}</span>
 			     	</a>	
 				</li>
 			</ul>
 		</li>	
-		<li >
-			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.income" aria-haspopup="true" aria-expanded="true">
+		<li ng-class="{'active':isCurrentState('app.income')}">
+			<a href="javascript:;" ui-sref-active="active" ui-sref="app.income" aria-haspopup="true" aria-expanded="true">
 				<i class="fa fa-angle-double-down" aria-hidden="true"></i>
 				<span >{{functions.SCHOOL_INCOME.value1}}</span> 
 			</a>	
 		</li>	
-		<li >
-			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.import" aria-haspopup="true" aria-expanded="true">
+		<li ng-class="{'active':isCurrentState('app.import')}" ng-if="checkPermission('ROLE_SUPER_ADMIN')">
+			<a href="javascript:;" ui-sref-active="active" ui-sref="app.import" aria-haspopup="true" aria-expanded="true">
 				<i class="fa fa-exchange" aria-hidden="true"></i>
 				<span >{{functions.IMPORT_DATA.value1}}</span> 
 			</a>	
 		</li>	
 		<li class="uib-dropdown dropdown open" uib-dropdown>
-			<a style="color:#000;" href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle aria-haspopup="true" aria-expanded="true"> 
+			<a href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle aria-haspopup="true" aria-expanded="true"> 
 				<i class="fa fa-files-o" aria-hidden="true"></i>
 				<span >{{functions.MONEY_CONTROL_FORM.value1}}</span> 
 				<span class="caret"></span>
 			</a>			
 			<ul class="dropdown-menu dropdown-menu" uib-dropdown-menu>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.nbudget">
+				<li ng-class="{'active':isCurrentState('app.form.nbudget')}">
+					<a ui-sref="app.form.nbudget">
 				        <span>{{moneyControlForms.N_BUDGET.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.loanfund">
+				<li ng-class="{'active':isCurrentState('app.form.loanfund')}">
+					<a ui-sref="app.form.loanfund">
 				        <span>{{moneyControlForms.LOAN_FUND.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.subsidy">
+				<li ng-class="{'active':isCurrentState('app.form.subsidy')}">
+					<a ui-sref="app.form.subsidy">
 				        <span>{{moneyControlForms.SUBSIDY.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.insurance">
+				<li ng-class="{'active':isCurrentState('app.form.insurance')}">
+					<a ui-sref="app.form.insurance">
 				        <span>{{moneyControlForms.INSURANCE.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.fteacher">
+				<li ng-class="{'active':isCurrentState('app.form.fteacher')}">
+					<a ui-sref="app.form.fteacher">
 				        <span>{{moneyControlForms.FOREIGN_TEACHER.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.expense">
+				<li ng-class="{'active':isCurrentState('app.form.expense')}">
+					<a ui-sref="app.form.expense">
 				        <span>{{moneyControlForms.EXPENSE.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.education">
+				<li ng-class="{'active':isCurrentState('app.form.education')}">
+					<a ui-sref="app.form.education">
 				        <span>{{moneyControlForms.EDUCATION_SUPPORT.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.tax">
+				<li ng-class="{'active':isCurrentState('app.form.tax')}">
+					<a ui-sref="app.form.tax">
 				        <span>{{moneyControlForms.TAX.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.revenue">
+				<li ng-class="{'active':isCurrentState('app.form.revenue')}">
+					<a ui-sref="app.form.revenue">
 				        <span>{{moneyControlForms.REVENUE.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.contact">
+				<li ng-class="{'active':isCurrentState('app.form.contact')}">
+					<a ui-sref="app.form.contact">
 				        <span>{{moneyControlForms.CONTRACT_COLLATERAL.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.scholarship">
+				<li ng-class="{'active':isCurrentState('app.form.scholarship')}">
+					<a ui-sref="app.form.scholarship">
 				        <span>{{moneyControlForms.SCHOLARSHIP.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.form.healthcheck">
+				<li ng-class="{'active':isCurrentState('app.form.healthcheck')}">
+					<a ui-sref="app.form.healthcheck">
 				        <span>{{moneyControlForms.HEALTH_CHECK.value1}}</span>
 			     	</a>	
 				</li>
 			</ul>	
 		</li>
 		<li class="uib-dropdown dropdown open" uib-dropdown>
-			<a style="color:#000;" href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true"> 
+			<a href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true"> 
 				<i class="fa fa-file-text-o" aria-hidden="true"></i>
 				<span >{{functions.MOBILIZE.value1}}</span> 
 				<span class="caret"></span>
 			</a>	
 			<ul class="dropdown-menu dropdown-menu">
-				<li>
-					<a style="color:#000;" ui-sref="app.mobilize.list">
+				<li ng-class="{'active':isCurrentState('app.mobilize.list')}">
+					<a ui-sref="app.mobilize.list">
 				        <span>{{mobilize.LIST.value1}}</span>
 			     	</a>	
 				</li>
-				<li>
-					<a style="color:#000;" ui-sref="app.mobilize.draft">
+				<li ng-class="{'active':isCurrentState('app.mobilize.draft')}">
+					<a ui-sref="app.mobilize.draft">
 				        <span>{{mobilize.DRAFT.value1}}</span>
 			     	</a>	
 				</li>
 			</ul>
 		</li>	
-		<li ng-if="checkPermission('ROLE_SUPER_ADMIN')">
-			<a style="color:#000;" href="javascript:;" ui-sref-active="active" ui-sref="app.user" aria-haspopup="true" aria-expanded="true">
+		<li ng-class="{'active':isCurrentState('app.user')}" ng-if="checkPermission('ROLE_SUPER_ADMIN')">
+			<a href="javascript:;" ui-sref-active="active" ui-sref="app.user" aria-haspopup="true" aria-expanded="true">
 				<i class="fa fa-user-secret" aria-hidden="true"></i>
 				<span >{{functions.MANAGE_USER.value1}}</span> 
 			</a>	
@@ -152,14 +152,14 @@
 	</ul>
 	<ul class="nav navbar-nav navbar-right" >
 		<li class="uib-dropdown dropdown open" uib-dropdown>
-			<a style="color:#000;" href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true"><img data-ng-src="images/avatar.png" class="header-avatar img-circle" alt="user" title="user" src="images/avatar.jpg"> 
+			<a href="javascript:;" class="dropdown-toggle ripple" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true"><img data-ng-src="images/avatar.png" class="header-avatar img-circle" alt="user" title="user" src="images/avatar.jpg"> 
 				<span >{{userData.name}}</span> 
 				<span class="caret"></span>
 			</a>			
 
 			<ul class="dropdown-menu dropdown-menu" uib-dropdown-menu="" >
 				<li>
-					<a style="color:#000;" ng-click="logout()">ออกจากระบบ</a>
+					<a ng-click="logout()">ออกจากระบบ</a>
 				</li>
 			</ul>			
 		</li>

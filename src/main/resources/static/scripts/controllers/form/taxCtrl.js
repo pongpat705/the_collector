@@ -17,7 +17,7 @@ angular
 	});
 	
 	$scope.moneyControlList = [];
-	$scope.moneyControl = null;
+	$scope.moneyControl = {};
 	
 //	$scope.patchPatient = function(patient, link){
 //	patientServices.patchPatientParent(patient, link).then(function(response){
@@ -32,9 +32,9 @@ angular
 		$scope.moneyControlList.splice(index, 1);
 	};
 	
-	$scope.addToList = function(){
-		$scope.moneyControlList.push($scope.moneyControl);
-		$scope.moneyControl = null;
+	$scope.addToList = function(moneyControl){
+		$scope.moneyControlList.push(moneyControl);
+		$scope.moneyControl = {};
 	};
 	
 	var paginationOptions = {
@@ -80,20 +80,64 @@ angular
             useExternalPagination: true,
             columnDefs: [
                 {name:'วันที่', field : 'entryDate', width: 100, enableSorting: true},
-                {name:'หมายเลขรายการ', field : 'transCode', width: 100},
-    			{name:'เอกสารเลขที่', field : 'docNo', width: 100},
+                {name:'หมายเลขรายการ', field : 'transCode'},
+    			{name:'เอกสารเลขที่', field : 'docNo'},
     			{name:'รายการ', field : 'description'},
-    			{name:'รายรับ', field : 'cashIn'},
-    			{name:'รายจ่าย', field : 'cashOut'},
-    			{name:'คงเหลือ', field : 'balance'},
-    			{name:'ลูกจ้างชั่วคราว', field : 'temporary'},
-    			{name:'ค่าตอบแทน', field : 'compensation'},
-    			{name:'ค่าใช้สอย', field : 'usability'},
-    			{name:'ค่าสาธารณูปโภค', field : 'utility'},
-    			{name:'ค่าวัสดุ', field : 'material'},
-    			{name:'ค่าครภัณฑ์', field : 'durable'},
-    			{name:'ค่าที่ดินสิ่งก่อสร้าง', field : 'landBuild'},
-    			{name:'เงินอุดหนุน', field : 'subsidy'},
+    			{name:'รายรับ',
+    				cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+    									'{{row.entity.cashIn | currency}}'+
+    								'</div>'
+				},
+				{name:'รายรับ',
+						cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+											'{{row.entity.cashOut | currency}}'+
+										'</div>'
+				},
+				{name:'คงเหลือ',
+						cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+											'{{row.entity.balance | currency}}'+
+										'</div>'
+				},
+				{name:'ลูกจ้างชั่วคราว',
+					cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+										'{{row.entity.temporary | currency}}'+
+									'</div>'
+				},
+				{name:'ค่าตอบแทน',
+					cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+										'{{row.entity.compensation | currency}}'+
+									'</div>'
+				},
+				{name:'ค่าใช้สอย',
+					cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+										'{{row.entity.usability | currency}}'+
+									'</div>'
+				},
+				{name:'ค่าสาธารณูปโภค',
+					cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+										'{{row.entity.utility | currency}}'+
+									'</div>'
+				},
+				{name:'ค่าวัสดุ',
+					cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+										'{{row.entity.material | currency}}'+
+									'</div>'
+				},
+				{name:'ค่าครภัณฑ์',
+					cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+										'{{row.entity.durable | currency}}'+
+									'</div>'
+				},
+				{name:'ค่าที่ดินสิ่งก่อสร้าง',
+					cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+										'{{row.entity.landBuild | currency}}'+
+									'</div>'
+				},
+				{name:'เงินอุดหนุน',
+					cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+										'{{row.entity.subsidy | currency}}'+
+									'</div>'
+				},
     			{name:'หมายเหตุ', field : 'remark'}
 //    			 {
 //                    name : 'Edit',

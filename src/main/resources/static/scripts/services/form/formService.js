@@ -25,6 +25,9 @@ angular.module('app').factory('formService',
       saveMoneyControl : function(controlType, moneyControlList){
     	  return $http.post(_CONTEXT+'/service/saveMoneyControl?controlType='+controlType,moneyControlList);
       },
+      approveCashBook : function(bookId){
+    	  return $http.get(_CONTEXT+'/service/approveCashBook?bookId='+bookId);
+      },
       saveCashBook : function(cashBookList){
     	  return $http.post(_CONTEXT+'/service/saveCashBook',cashBookList);
       },

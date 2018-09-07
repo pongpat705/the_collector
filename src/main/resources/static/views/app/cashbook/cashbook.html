@@ -1,14 +1,13 @@
 <div class="p-x m-t-lg">
    <h2>{{functions.CASH_BOOK.value1}}</h2>
   <div class="row">
- 		<div  ui-grid="cashbookGridOptions" class="grid" ui-grid-pagination ui-grid-resize-columns>
+ 		<div  ui-grid="cashbookGridOptions" class="grid" ui-grid-pagination style="width: 100%;">
   		</div>
   </div>
-  <div class="row">
+  <div class="row" ng-if="checkPermission('ROLE_MAKER')">
   		<table class="table">
   			<thead>
   				<tr>
-  					<th>วันที่</th>
   					<th>เอกสารเลขที่</th>
   					<th>เล่มที่</th>
   					<th>รายการ</th>
@@ -21,29 +20,27 @@
   					<th>ลบ</th>
   				</tr>
   			</thead>
-  			<tbody>
+  			<tbody >
   				<tr ng-repeat="c in cashbookList">
-  					<td><input type="text" class="form-control date" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="" name="entryDate" ng-model="c.entryDate"></td>
   					<td><input type="text" class="form-control" placeholder="" name="docNo" ng-model="c.docNo"></td>
   					<td><input type="text" class="form-control" placeholder="" name="bookNo" ng-model="c.bookNo"></td>
   					<td><input type="text" class="form-control" placeholder="" name="description" ng-model="c.description"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="debit" ng-model="c.debit"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditBudget" ng-model="c.creditBudget"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditRevenue" ng-model="c.creditRevenue"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditNbudget" ng-model="c.creditNbudget"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="debit" ng-model="c.debit" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="creditBudget" ng-model="c.creditBudget" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="creditRevenue" ng-model="c.creditRevenue" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="creditNbudget" ng-model="c.creditNbudget" format="currency"></td>
   					<td><input type="text" class="form-control" placeholder="" name="remark" ng-model="c.remark"></td>
   					<td></td>
   					<td><button class="btn btn-danger" ng-click="deleteFromList($index)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
   				</tr>
   				<tr>
-  					<td><input type="text" class="form-control date" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="" name="entryDate" ng-model="cashbook.entryDate"></td>
   					<td><input type="text" class="form-control" placeholder="" name="docNo" ng-model="cashbook.docNo"></td>
   					<td><input type="text" class="form-control" placeholder="" name="bookNo" ng-model="cashbook.bookNo"></td>
   					<td><input type="text" class="form-control" placeholder="" name="description" ng-model="cashbook.description"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="debit" ng-model="cashbook.debit"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditBudget" ng-model="cashbook.creditBudget"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditRevenue" ng-model="cashbook.creditRevenue"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="creditNbudget" ng-model="cashbook.creditNbudget"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="debit" ng-model="cashbook.debit" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="creditBudget" ng-model="cashbook.creditBudget" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="creditRevenue" ng-model="cashbook.creditRevenue" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="creditNbudget" ng-model="cashbook.creditNbudget" format="currency"></td>
   					<td><input type="text" class="form-control" placeholder="" name="remark" ng-model="cashbook.remark"></td>
   					<td><button class="btn btn-primary" ng-click="addToList()" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
   					<td></td>

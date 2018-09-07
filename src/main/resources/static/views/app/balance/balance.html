@@ -9,18 +9,18 @@
 			          <div class="form-group">
 			            <label class="col-sm-2 text-uppercase control-label">ส่วนราชการ <span class="require">*</span></label>
 			            <div class="col-sm-3">
-			            	<input type="text" ng-disabled="false" class="form-control" placeholder="" name="department" ng-model="balance.department" maxlength="150">
+			            	<input type="text" ng-disabled="!checkPermission('ROLE_MAKER')" class="form-control" placeholder="" name="department" ng-model="balance.department" maxlength="150">
 			            </div>
 			          	<label class="col-sm-2 text-uppercase control-label">อำเภอ</label>
 			          	<div class="col-sm-3">
-			          		<input type="text" ng-disabled="false" class="form-control" placeholder="" name="amphur" ng-model="balance.amphur" maxlength="20">
+			          		<input type="text" ng-disabled="!checkPermission('ROLE_MAKER')" class="form-control" placeholder="" name="amphur" ng-model="balance.amphur" maxlength="20">
 			          	</div>
 			          </div>  
 			          <div class="form-group">
 			          	<label class="col-sm-3 text-uppercase control-label"></label>
 			          	<label class="col-sm-2 text-uppercase control-label">ประจำวันที่</label>
 			          	<div class="col-sm-2">
-			          		<input type="text" ng-disabled="false" class="form-control date" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="" name="createDate" ng-model="balance.createDate" maxlength="10">
+			          		<input type="text" ng-disabled="!checkPermission('ROLE_MAKER')" class="form-control date" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="" name="createDate" ng-model="balance.createDate" maxlength="10">
 			          	</div>
 			          	<label class="col-sm-4 text-uppercase control-label"></label>
 			          </div>  
@@ -40,24 +40,24 @@
 					  					<td>
 					  						<div class="col-sm-12">
 					  							<div class="col-sm-3">
-					  								<select class="form-control" ng-disabled="false" ng-model="c.balanceType"
+					  								<select ng-disabled="!checkPermission('ROLE_MAKER')" class="form-control" ng-disabled="false" ng-model="c.balanceType"
 														ng-options="r.paramCode as r.value1 for r in dropdownBalance">
 									          		</select>
 					  							</div>
 					  							<div class="col-sm-3">
-					  								<input type="number" class="form-control" placeholder="" name="balanceNumber" ng-model="c.balanceNumber">
+					  								<input  ng-disabled="!checkPermission('ROLE_MAKER')"type="number" class="form-control" placeholder="" name="balanceNumber" ng-model="c.balanceNumber">
 					  							</div>
 					  							<div class="col-sm-3">
-					  								<input type="text" class="form-control" placeholder="" name="balanceSuffix" ng-value="mapBalance[c.balanceType].value2" ng-model="c.balanceSuffix">
+					  								<input ng-disabled="!checkPermission('ROLE_MAKER')" type="text" class="form-control" placeholder="" name="balanceSuffix" ng-value="mapBalance[c.balanceType].value2" ng-model="c.balanceSuffix">
 					  							</div>
 					  						</div>
 					  					</td>
-					  					<td><input type="number" class="form-control" ng-disabled=" 'BOOK' == c.balanceType " placeholder="" name="amount" ng-model="c.amount"></td>
-					  					<td><input type="text" class="form-control" placeholder="" name="remark" ng-model="c.remark"></td>
+					  					<td><input ng-disabled="!checkPermission('ROLE_MAKER')" type="text" class="form-control" ng-disabled=" 'BOOK' == c.balanceType " placeholder="" name="amount" ng-model="c.amount" format="currency"></td>
+					  					<td><input ng-disabled="!checkPermission('ROLE_MAKER')" type="text" class="form-control" placeholder="" name="remark" ng-model="c.remark"></td>
 					  					<td></td>
-					  					<td><button class="btn btn-danger" ng-click="deleteFromList($index)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+					  					<td><button ng-disabled="!checkPermission('ROLE_MAKER')" class="btn btn-danger" ng-click="deleteFromList($index)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
 					  				</tr>
-					  				<tr>
+					  				<tr ng-if="checkPermission('ROLE_MAKER')">
 					  					<td>
 					  						<div class="col-sm-12">
 					  							<div class="col-sm-3">
@@ -73,24 +73,18 @@
 					  							</div>
 					  						</div>
 					  					</td>
-					  					<td><input type="number" class="form-control" ng-disabled=" 'BOOK' == balanceRow.balanceType " placeholder="" name="amount" ng-model="balanceRow.amount"></td>
+					  					<td><input type="text" class="form-control" ng-disabled=" 'BOOK' == balanceRow.balanceType " placeholder="" name="amount" ng-model="balanceRow.amount" format="currency"></td>
 					  					<td><input type="text" class="form-control" placeholder="" name="remark" ng-model="balanceRow.remark"></td>
 					  					<td></td>
-					  					<td><button class="btn btn-primary" ng-click="addToList()" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
+					  					<td><button class="btn btn-primary" ng-if="checkPermission('ROLE_MAKER')" ng-click="addToList()" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
 					  					<td></td>
 					  				</tr>
 					  			</tbody>
 					  		</table>
 			          	</div>
 			          </div>  
-			          <div class="form-group">
-			          	<label class="col-sm-2 text-uppercase control-label">จำนวนเงินตัวอักษร</label>
-			          	<div class="col-sm-8">
-			          		<input type="text" ng-disabled="false" class="form-control" placeholder="" name="totalText" ng-model="balance.totalText" maxlength="50">
-			          	</div>
-			          </div>  
 			          
-			          <button class="btn btn-primary" ng-click="save()" ><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>บันทึก</button>
+			          <button class="btn btn-primary" ng-if="checkPermission('ROLE_MAKER')" ng-click="save()" ><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>บันทึก</button>
 			          <button class="btn btn-danger" ng-if="mode =='view'" title="Print" ng-click="printPdf(balance);" ><i class="fa fa-print" aria-hidden="true"></i> พิมพ์</button>
 	</form>
   </div>

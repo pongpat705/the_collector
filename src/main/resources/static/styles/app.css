@@ -3089,11 +3089,12 @@ pre {
   padding-right: 1.25rem; }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-  background-color: #f8f8f8; }
+  background-color: #ff8040; }
 
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
-  background-color: #f8f8f8;
-  color: #59595A; }
+  background-color: #ffe2a0;
+  color: #ff0000; 
+  }
 
 /* $forms
  ------------------------------------------*/

@@ -1,14 +1,13 @@
 <div class="p-x m-t-lg">
 	<h2>{{functions.SCHOOL_INCOME.value1}}</h2>
   <div class="row">
- 		<div  ui-grid="incomeGridOptions" class="grid" ui-grid-pagination ui-grid-resize-columns>
+ 		<div  ui-grid="incomeGridOptions" class="grid" ui-grid-pagination>
   		</div>
   </div>
   <div class="row">
-  		<table class="table">
+  		<table class="table" ng-if="checkPermission('ROLE_MAKER')">
   			<thead>
   				<tr>
-  					<th>วันที่</th>
   					<th>ที่เอกสาร</th>
   					<th>เล่มที่</th>
   					<th>รายการ</th>
@@ -16,42 +15,37 @@
   					<th>ผลประโยชน์อื่น ๆ</th>
   					<th>ดอกเบี้ย</th>
   					<th>เงินรายได้อื่น ๆ</th>
-  					<th>รวม</th>
   					<th>หมายเหตุ</th>
   					<th></th>
   				</tr>
   			</thead>
   			<tbody>
-  				<tr ng-repeat="c in budgetList">
-  					<td><input type="text" class="form-control date" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="" name="entryDate" ng-model="c.entryDate"></td>
+  				<tr ng-repeat="c in budgetList track by $index">
   					<td><input type="text" class="form-control" placeholder="" name="docNo" ng-model="c.docNo"></td>
   					<td><input type="text" class="form-control" placeholder="" name="recordNo" ng-model="c.recordNo"></td>
   					<td><input type="text" class="form-control" placeholder="" name="description" ng-model="c.description"></td>
-  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(e)" name="income" ng-model="c.income"></td>
-  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(e)" name="extra" ng-model="c.extra"></td>
-  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(e)" name="interest" ng-model="c.interest"></td>
-  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(e)" name="other" ng-model="c.other"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="sum" ng-model="c.sum"></td>
+  					<td><input type="text" class="form-control" placeholder=""  name="income" ng-model="c.income" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder=""  name="extra" ng-model="c.extra" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder=""  name="interest" ng-model="c.interest" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder=""  name="other" ng-model="c.other" format="currency"></td>
   					<td><input type="text" class="form-control" placeholder="" name="remark" ng-model="c.remark"></td>
   					<td></td>
   					<td><button class="btn btn-danger" ng-click="deleteFromList($index)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
   				</tr>
   				<tr>
-  					<td><input type="text" class="form-control date" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="" name="entryDate" ng-model="budget.entryDate"></td>
   					<td><input type="text" class="form-control" placeholder="" name="docNo" ng-model="budget.docNo"></td>
   					<td><input type="text" class="form-control" placeholder="" name="recordNo" ng-model="budget.recordNo"></td>
   					<td><input type="text" class="form-control" placeholder="" name="description" ng-model="budget.description"></td>
-  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(budget)" name="income" ng-model="budget.income"></td>
-  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(budget)"  name="extra" ng-model="budget.extra"></td>
-  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(budget)" name="interest" ng-model="budget.interest"></td>
-  					<td><input type="number" class="form-control" placeholder="" ng-blur="recordChange(budget)" name="other" ng-model="budget.other"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="sum" ng-model="budget.sum"></td>
+  					<td><input type="text" class="form-control" placeholder=""  name="income" ng-model="budget.income" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder=""   name="extra" ng-model="budget.extra" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder=""  name="interest" ng-model="budget.interest" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder=""  name="other" ng-model="budget.other" format="currency"></td>
   					<td><input type="text" class="form-control" placeholder="" name="remark" ng-model="budget.remark"></td>
-  					<td><button class="btn btn-primary" ng-click="addToList()" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
+  					<td><button class="btn btn-primary" ng-click="addToList(budget)" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
   					<td></td>
   				</tr>
   			</tbody>
   		</table>
-  		<button class="btn btn-primary" ng-click="save()" ><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>บันทึก</button>
+  		<button ng-if="checkPermission('ROLE_MAKER')" class="btn btn-primary" ng-click="save()" ><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>บันทึก</button>
   </div>
 </div>

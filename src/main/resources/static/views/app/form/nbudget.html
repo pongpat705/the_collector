@@ -1,14 +1,13 @@
 <div class="p-x m-t-lg">
 <h2>{{formName}}</h2>
   <div class="row">
- 		<div  ui-grid="nbudgetGridOptions" class="grid" ui-grid-pagination ui-grid-resize-columns>
+ 		<div  ui-grid="nbudgetGridOptions" class="grid" ui-grid-pagination>
   		</div>
   </div>
   <div class="row">
-  		<table class="table">
+  		<table class="table" ng-if="checkPermission('ROLE_MAKER')">
   			<thead>
   				<tr>
-  					<th>วันที่</th>
   					<th>เอกสารเลขที่</th>
   					<th>รายการ</th>
   					<th>รายรับ</th>
@@ -29,45 +28,43 @@
   			</thead>
   			<tbody>
   				<tr ng-repeat="m in moneyControlList">
-  					<td><input type="text" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="" name="entryDate" ng-model="m.entryDate"></td>
   					<td><input type="text" class="form-control" placeholder="" name="xdocNo" ng-model="m.docNo"></td>
   					<td><input type="text" class="form-control" placeholder="" name="xdescription" ng-model="m.description"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="xcashIn" ng-model="m.cashIn"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="xcashOut" ng-model="m.cashOut"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="xbalance" ng-model="m.balance"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number" class="form-control" placeholder="" name="xtemporary" ng-model="m.temporary"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number" class="form-control" placeholder="" name="xcompensation" ng-model="m.compensation"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number" class="form-control" placeholder="" name="xusability" ng-model="m.usability"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number" class="form-control" placeholder="" name="xutility" ng-model="m.utility"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number" class="form-control" placeholder="" name="xmaterial" ng-model="m.material"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number" class="form-control" placeholder="" name="xdurable" ng-model="m.durable"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number" class="form-control" placeholder="" name="xlandBuild" ng-model="m.landBuild"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number" class="form-control" placeholder="" name="xsubsidy" ng-model="m.subsidy"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="xcashIn" ng-model="m.cashIn" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="xcashOut" ng-model="m.cashOut" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="xbalance" ng-model="m.balance" format="currency"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text" class="form-control" placeholder="" format="currency" name="xtemporary" ng-model="m.temporary"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text" class="form-control" placeholder="" format="currency" name="xcompensation" ng-model="m.compensation"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text" class="form-control" placeholder="" format="currency" name="xusability" ng-model="m.usability"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text" class="form-control" placeholder="" format="currency" name="xutility" ng-model="m.utility"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text" class="form-control" placeholder="" format="currency" name="xmaterial" ng-model="m.material"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text" class="form-control" placeholder="" format="currency" name="xdurable" ng-model="m.durable"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text" class="form-control" placeholder="" format="currency" name="xlandBuild" ng-model="m.landBuild"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text" class="form-control" placeholder="" format="currency" name="xsubsidy" ng-model="m.subsidy"></td>
   					<td ><input type="text" class="form-control" placeholder="" name="xremark" ng-model="m.remark"></td>
   					<td></td>
   					<td><button class="btn btn-danger" ng-click="deleteFromList($index)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
   				</tr>
   				<tr>
-  					<td><input type="text" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="" name="entryDate" ng-model="moneyControl.entryDate"></td>
   					<td><input type="text" class="form-control" placeholder="" name="docNo" ng-model="moneyControl.docNo"></td>
   					<td><input type="text" class="form-control" placeholder="" name="description" ng-model="moneyControl.description"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="cashIn" ng-model="moneyControl.cashIn"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="cashOut" ng-model="moneyControl.cashOut"></td>
-  					<td><input type="number" class="form-control" placeholder="" name="balance" ng-model="moneyControl.balance"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number"  class="form-control" placeholder="" name="temporary" ng-model="moneyControl.temporary"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number"  class="form-control" placeholder="" name="compensation" ng-model="moneyControl.compensation"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number"  class="form-control" placeholder="" name="usability" ng-model="moneyControl.usability"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number"  class="form-control" placeholder="" name="utility" ng-model="moneyControl.utility"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number"  class="form-control" placeholder="" name="material" ng-model="moneyControl.material"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number"  class="form-control" placeholder="" name="durable" ng-model="moneyControl.durable"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number"  class="form-control" placeholder="" name="landBuild" ng-model="moneyControl.landBuild"></td>
-  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="number"  class="form-control" placeholder="" name="subsidy" ng-model="moneyControl.subsidy"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="cashIn" ng-model="moneyControl.cashIn" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="cashOut" ng-model="moneyControl.cashOut" format="currency"></td>
+  					<td><input type="text" class="form-control" placeholder="" name="balance" ng-model="moneyControl.balance" format="currency"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text"  class="form-control" placeholder="" format="currency" name="temporary" ng-model="moneyControl.temporary"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text"  class="form-control" placeholder="" format="currency" name="compensation" ng-model="moneyControl.compensation"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text"  class="form-control" placeholder="" format="currency" name="usability" ng-model="moneyControl.usability"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text"  class="form-control" placeholder="" format="currency" name="utility" ng-model="moneyControl.utility"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text"  class="form-control" placeholder="" format="currency" name="material" ng-model="moneyControl.material"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text"  class="form-control" placeholder="" format="currency" name="durable" ng-model="moneyControl.durable"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text"  class="form-control" placeholder="" format="currency" name="landBuild" ng-model="moneyControl.landBuild"></td>
+  					<td ng-if=" 'N_BUDGET' != paginationOptions.controlType"><input type="text"  class="form-control" placeholder="" format="currency" name="subsidy" ng-model="moneyControl.subsidy"></td>
   					<td><input type="text" class="form-control" placeholder="" name="remark" ng-model="moneyControl.remark"></td>
-  					<td><button class="btn btn-primary" ng-click="addToList()" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
+  					<td><button class="btn btn-primary" ng-click="addToList(moneyControl)" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
   					<td></td>
   				</tr>
   			</tbody>
   		</table>
-  		<button class="btn btn-primary" ng-click="save()" ><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>บันทึก</button>
+  		<button ng-if="checkPermission('ROLE_MAKER')" class="btn btn-primary" ng-click="save()" ><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>บันทึก</button>
   </div>
 </div>

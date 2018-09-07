@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -33,6 +34,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
 import th.co.collector.components.Setup;
+import th.co.collector.constants.ApplicationConstants;
 import th.co.collector.entities.mobilize.Mobilize;
 import th.co.collector.entities.mobilize.MobilizeMaster;
 import th.co.collector.entities.moneycontrol.Balance;
@@ -73,13 +75,18 @@ public class ExportController {
 			Integer month = calendarToCal.get(Calendar.MONTH);
 			Integer year = calendarToCal.get(Calendar.YEAR);
 			
+			BigDecimal amountSum 			= new BigDecimal(BigDecimal.ZERO.toString());
+			for (Balance balance : balanceMaster.getBalances()) {
+				amountSum = amountSum.add(balance.getAmount());
+			}
+			
 			
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("DATE_YEAR", year+543);
 			params.put("DATE_MONTH", Setup.getMONTH_TH().get(month));
 			params.put("DATE_DAY", day);
 			params.put("AMPHUR", balanceMaster.getAmphur());
-			params.put("AMOUNT_TEXT", balanceMaster.getTotalText());
+			params.put("AMOUNT_TEXT", amountToWord(amountSum));
 			params.put("DEPARTMENT", balanceMaster.getDepartment());
 			
 			List<Balance> balanceList = balanceMaster.getBalances();
@@ -145,16 +152,21 @@ public class ExportController {
 			Integer month = calendarToCal.get(Calendar.MONTH);
 			Integer year = calendarToCal.get(Calendar.YEAR);
 			
+			BigDecimal amountSum 			= new BigDecimal(BigDecimal.ZERO.toString());
+			for (Mobilize balance : mobilizeMaster.getMobilizes()) {
+				amountSum = amountSum.add(balance.getAmount());
+			}
+			
 			
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("SEMETER", year+543);
 			params.put("PRODUCT_CODE", Setup.getMONTH_TH().get(month));
 			params.put("DATELINE", day);
-			params.put("AMOUNT_TEXT", mobilizeMaster.getTotalText());
+			params.put("AMOUNT_TEXT", amountToWord(amountSum));
 			params.put("NAME", mobilizeMaster.getStudentName());
 			params.put("REF1", mobilizeMaster.getRef1());
 			params.put("REF2", mobilizeMaster.getRef2());
-			params.put("TOTAL_AMOUNT", mobilizeMaster.getTotalAmount());
+			params.put("TOTAL_AMOUNT", amountSum);
 			params.put("IMG1", new ClassPathResource("/jasper/embled.jpg").getPath());
 			params.put("IMG2", new ClassPathResource("/jasper/ktb.jpg").getPath());
 			
@@ -199,6 +211,107 @@ public class ExportController {
 			}
 						
 		}
+	}
+	
+	static String[] numStrings = {"", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"};
+	
+	public String amountToWord(BigDecimal amount) {
+		
+		BigDecimal amont = amount;
+		log.info(amont.toPlainString());
+		log.info(""+amont.intValue());
+		log.info(""+amont.scale());
+		
+		//scale value
+		String scaleStr = amont.toPlainString().substring(amont.toPlainString().length()-amont.scale(), amont.toPlainString().length());
+		String decimalStr = "";
+		for (int i = 0; i < scaleStr.length(); i++) {
+			String string = String.valueOf(scaleStr.charAt(i));
+			if(i == 0) {
+				decimalStr += numStrings[Integer.parseInt(string)];
+				if(StringUtils.isNotBlank(numStrings[Integer.parseInt(string)])) {
+					decimalStr += "สิบ";
+				}
+				
+			} else {
+				decimalStr += numStrings[Integer.parseInt(string)];
+			}
+		}
+		if(StringUtils.isNotBlank(decimalStr)) {
+			decimalStr += "สตางค์";
+		}
+		log.info(decimalStr);
+		
+		//full value
+		String fullStr = String.valueOf(amont.intValue());
+		fullStr = StringUtils.leftPad(fullStr, 7, "0");
+		log.info(fullStr);
+		String text = "";
+		for (int i = 0; i < fullStr.length(); i++) {
+			String string = String.valueOf(fullStr.charAt(i));
+			if( 7 == fullStr.length()) {
+				
+				switch (i) {
+				case 0:
+					text += numStrings[Integer.parseInt(string)];
+					if(StringUtils.isNotBlank(numStrings[Integer.parseInt(string)])) {
+						text += "ล้าน";
+					}
+					break;
+				case 1:
+					text += numStrings[Integer.parseInt(string)];
+					if(StringUtils.isNotBlank(numStrings[Integer.parseInt(string)])) {
+						text += "แสน";
+					}
+					break;
+				case 2:
+					text += numStrings[Integer.parseInt(string)];
+					if(StringUtils.isNotBlank(numStrings[Integer.parseInt(string)])) {
+						text += "หมื่น";
+					}
+					break;
+				case 3:
+					text += numStrings[Integer.parseInt(string)];
+					if(StringUtils.isNotBlank(numStrings[Integer.parseInt(string)])) {
+						text += "พัน";
+					}
+					break;
+				case 4:
+					text += numStrings[Integer.parseInt(string)];
+					if(StringUtils.isNotBlank(numStrings[Integer.parseInt(string)])) {
+						text += "ร้อย";
+					}
+					break;
+				case 5:
+					if(2 == Integer.parseInt(string)) {
+						text +="ยี่สิบ";
+					} else {
+						text += numStrings[Integer.parseInt(string)];
+						if(StringUtils.isNotBlank(numStrings[Integer.parseInt(string)])) {
+							text += "สิบ";
+						}
+					}
+					
+					break;
+				case 6:
+					if(1 == Integer.parseInt(string)) {
+						text += "เอ็ด";
+					} else {
+						text += numStrings[Integer.parseInt(string)];
+					}
+					
+					break;
+				default:
+					text += "";
+					break;
+				}
+				
+			}
+			
+		}
+		String result = text+"บาท"+decimalStr;
+		log.info(result);
+		return result;
 	}
 
 }

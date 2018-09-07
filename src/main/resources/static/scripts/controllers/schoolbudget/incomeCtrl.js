@@ -16,7 +16,7 @@ angular
 	});
 	
 	$scope.budgetList = [];
-	$scope.budget = null;
+	$scope.budget = {};
 	
 	var paginationOptions = {
 	        pageNumber: 0,
@@ -43,9 +43,9 @@ angular
 		$scope.budgetList.splice(index, 1);
 	};
 	
-	$scope.addToList = function(){
-		$scope.budgetList.push($scope.budget);
-		$scope.budget = null;
+	$scope.addToList = function(budget){
+		$scope.budgetList.push(budget);
+		$scope.budget = {};
 	};
 	
 	$scope.save = function(){
@@ -59,16 +59,6 @@ angular
 		});
 	};
 	
-	$scope.recordChange = function(e){
-		var income = e.income ? e.income:0;
-		var extra = e.extra ? e.extra:0;
-		var interest = e.interest ? e.interest :0;
-		var other = e.other ? e.other :0;
-		
-		var sum = income+extra+interest+other;
-		
-		e.sum = sum;
-	}
 	
 	$scope.incomeGridOptions = {
             paginationPageSizes: [5, 10, 20],
@@ -81,12 +71,28 @@ angular
                 {name:'เอกสารเลขที่', field : 'docNo'},
     			{name:'เล่มที่', field : 'recordNo'},
     			{name:'รายการ', field : 'description'},
-    			{name:'เงินรายได้สถานศึกษา', field : 'income'},
-    			{name:'ผลประโยชน์อื่น ๆ', field : 'extra'},
     			{name:'ดอกเบี้ย', field : 'interest'},
-    			{name:'เงินรายได้อื่น ๆ', field : 'other'},
-    			{name:'รวม', field : 'sum'},
-    			{name:'หมายเหจุ', field : 'remark'}
+    			{name:'เงินรายได้สถานศึกษา',
+    				cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+    									'{{row.entity.income | currency}}'+
+    								'</div>'
+				},
+				{name:'ผลประโยชน์อื่น ๆ',
+						cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+											'{{row.entity.extra | currency}}'+
+										'</div>'
+				},
+				{name:'ดอกเบี้ย',
+						cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+											'{{row.entity.interest | currency}}'+
+										'</div>'
+				},
+    			{name:'เงินรายได้อื่น ๆ',
+					cellTemplate : 	'<div class="ui-grid-cell-contents">' +
+										'{{row.entity.other | currency}}'+
+									'</div>'
+    			},
+    			{name:'หมายเหตุ', field : 'remark'}
 //    			{
 //                    name : 'ดูรายงาน',
 //                    cellTemplate : '<div class="ui-grid-cell-contents">' +

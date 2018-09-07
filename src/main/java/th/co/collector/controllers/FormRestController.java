@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,116 +61,128 @@ public class FormRestController {
 	MobilizeReporsitory mobilizeMasterRepository;
 	
 	@RequestMapping(value="/saveMoneyControl", method=RequestMethod.POST)
-	public void saveMoneyControl(@RequestParam String controlType, @RequestBody List<MoneyControl> moneyControlList, HttpServletResponse sResponse) {
+	public void saveMoneyControl(@RequestParam String controlType, @RequestBody List<MoneyControl> moneyControlList, HttpServletResponse sResponse, Authentication authentication) {
 		
 		Date entryDate = new Date();
 		TransCode transCode = commonService.genTransCode(controlType);
 		
-		BigDecimal cashInSum 		= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal cashOutSum 		= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal balanceSum 		= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal temporarySum 	= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal compensationSum 	= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal usabilitySum 	= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal utilitySum 		= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal materialSum 		= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal durableSum 		= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal landBuildSum 	= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal subsidySum 		= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal cashInSum 		= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal cashOutSum 		= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal balanceSum 		= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal temporarySum 	= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal compensationSum 	= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal usabilitySum 	= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal utilitySum 		= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal materialSum 		= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal durableSum 		= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal landBuildSum 	= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal subsidySum 		= new BigDecimal(BigDecimal.ZERO.toString());
 		for (MoneyControl moneyControl : moneyControlList) {
 			moneyControl.setControlType(controlType);
 			moneyControl.setTransCode(transCode.getCode());
 			moneyControl.setEntryDate(entryDate);
+			moneyControl.setRecordBy(authentication.getName());
 			//sum
-			cashInSum = cashInSum.add(				null == moneyControl.getCashIn() 		? BigDecimal.ZERO : moneyControl.getCashIn()		);
-			cashOutSum = cashOutSum.add(			null == moneyControl.getCashOut() 		? BigDecimal.ZERO : moneyControl.getCashOut()		);
-			balanceSum = balanceSum.add(			null == moneyControl.getBalance() 		? BigDecimal.ZERO : moneyControl.getBalance()		);
-			temporarySum = temporarySum.add(		null == moneyControl.getTemporary() 	? BigDecimal.ZERO : moneyControl.getTemporary()		);
-			compensationSum = compensationSum.add(	null == moneyControl.getCompensation() 	? BigDecimal.ZERO : moneyControl.getCompensation()	);
-			usabilitySum = usabilitySum.add(		null == moneyControl.getUsability() 	? BigDecimal.ZERO : moneyControl.getUsability()		);
-			utilitySum = utilitySum.add(			null == moneyControl.getUtility() 		? BigDecimal.ZERO : moneyControl.getUtility()		);
-			materialSum = materialSum.add(			null == moneyControl.getMaterial() 		? BigDecimal.ZERO : moneyControl.getMaterial()		);
-			durableSum = durableSum.add(			null == moneyControl.getDurable() 		? BigDecimal.ZERO : moneyControl.getDurable()		);
-			landBuildSum = landBuildSum.add(		null == moneyControl.getLandBuild() 	? BigDecimal.ZERO : moneyControl.getLandBuild()		);
-			subsidySum = subsidySum.add(			null == moneyControl.getSubsidy() 		? BigDecimal.ZERO : moneyControl.getSubsidy()		);
+//			cashInSum = cashInSum.add(				null == moneyControl.getCashIn() 		? BigDecimal.ZERO : moneyControl.getCashIn()		);
+//			cashOutSum = cashOutSum.add(			null == moneyControl.getCashOut() 		? BigDecimal.ZERO : moneyControl.getCashOut()		);
+//			balanceSum = balanceSum.add(			null == moneyControl.getBalance() 		? BigDecimal.ZERO : moneyControl.getBalance()		);
+//			temporarySum = temporarySum.add(		null == moneyControl.getTemporary() 	? BigDecimal.ZERO : moneyControl.getTemporary()		);
+//			compensationSum = compensationSum.add(	null == moneyControl.getCompensation() 	? BigDecimal.ZERO : moneyControl.getCompensation()	);
+//			usabilitySum = usabilitySum.add(		null == moneyControl.getUsability() 	? BigDecimal.ZERO : moneyControl.getUsability()		);
+//			utilitySum = utilitySum.add(			null == moneyControl.getUtility() 		? BigDecimal.ZERO : moneyControl.getUtility()		);
+//			materialSum = materialSum.add(			null == moneyControl.getMaterial() 		? BigDecimal.ZERO : moneyControl.getMaterial()		);
+//			durableSum = durableSum.add(			null == moneyControl.getDurable() 		? BigDecimal.ZERO : moneyControl.getDurable()		);
+//			landBuildSum = landBuildSum.add(		null == moneyControl.getLandBuild() 	? BigDecimal.ZERO : moneyControl.getLandBuild()		);
+//			subsidySum = subsidySum.add(			null == moneyControl.getSubsidy() 		? BigDecimal.ZERO : moneyControl.getSubsidy()		);
 			//sum
 			moneyRepository.save(moneyControl);
 		}
 		
-		MoneyControl moneySum = new MoneyControl();
-		moneySum.setEntryDate(entryDate);
-		moneySum.setControlType(controlType);
-		moneySum.setTransCode("SUM_"+transCode.getCode());
-		moneySum.setCashIn(cashInSum);
-		moneySum.setCashOut(cashOutSum);
-		moneySum.setBalance(balanceSum);
-		moneySum.setTemporary(temporarySum);
-		moneySum.setCompensation(compensationSum);
-		moneySum.setUsability(usabilitySum);
-		moneySum.setUtility(utilitySum);
-		moneySum.setMaterial(materialSum);
-		moneySum.setDurable(durableSum);
-		moneySum.setLandBuild(landBuildSum);
-		moneySum.setSubsidy(subsidySum);
-		moneySum.setRemark("SUM");
-		moneyRepository.save(moneySum);
+//		MoneyControl moneySum = new MoneyControl();
+//		moneySum.setEntryDate(entryDate);
+//		moneySum.setControlType(controlType);
+//		moneySum.setTransCode("SUM_"+transCode.getCode());
+//		moneySum.setCashIn(cashInSum);
+//		moneySum.setCashOut(cashOutSum);
+//		moneySum.setBalance(balanceSum);
+//		moneySum.setTemporary(temporarySum);
+//		moneySum.setCompensation(compensationSum);
+//		moneySum.setUsability(usabilitySum);
+//		moneySum.setUtility(utilitySum);
+//		moneySum.setMaterial(materialSum);
+//		moneySum.setDurable(durableSum);
+//		moneySum.setLandBuild(landBuildSum);
+//		moneySum.setSubsidy(subsidySum);
+//		moneySum.setRemark("SUM");
+//		moneyRepository.save(moneySum);
 		
 		sResponse.setStatus(HttpStatus.CREATED.value());
 		
 	}
 	
+	@RequestMapping(value="/approveCashBook", method=RequestMethod.GET)
+	public void approveCashBook(@RequestParam Long bookId, HttpServletResponse sResponse, Authentication authentication) {
+		Optional<CashBook> cashbooks = cashBookRepository.findById(bookId);
+		CashBook cb = cashbooks.get();
+		cb.setReviewBy(authentication.getName());
+		cb.setApproveBy(authentication.getName());
+		cashBookRepository.save(cb);
+		sResponse.setStatus(HttpStatus.CREATED.value());
+	}
 	@RequestMapping(value="/saveCashBook", method=RequestMethod.POST)
-	public void saveCashBook(@RequestBody List<CashBook> cashBookList, HttpServletResponse sResponse) {
+	public void saveCashBook(@RequestBody List<CashBook> cashBookList, HttpServletResponse sResponse, Authentication authentication) {
 		
 		Date entryDate = new Date();
 		
 		TransCode transCode = commonService.genTransCode("CASHBOOK");
 		
-		BigDecimal debitSum 			= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal creditBudgetSum 		= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal creditRevenueSum 	= new BigDecimal(BigDecimal.ZERO.toString());
-		BigDecimal creditNbudget 		= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal debitSum 			= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal creditBudgetSum 		= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal creditRevenueSum 	= new BigDecimal(BigDecimal.ZERO.toString());
+//		BigDecimal creditNbudget 		= new BigDecimal(BigDecimal.ZERO.toString());
 		for (CashBook cashbook : cashBookList) {
 			cashbook.setTransactionCode(transCode.getCode());
 			cashbook.setEntryDate(entryDate);
+			cashbook.setRecordBy(authentication.getName());
 			//sum
-			debitSum 			= debitSum.add(			null == cashbook.getDebit()			? BigDecimal.ZERO :cashbook.getDebit()			);
-			creditBudgetSum 	= creditBudgetSum.add(	null == cashbook.getCreditBudget()	? BigDecimal.ZERO :cashbook.getCreditBudget()	);
-			creditRevenueSum 	= creditRevenueSum.add(	null == cashbook.getCreditRevenue()	? BigDecimal.ZERO :cashbook.getCreditRevenue()	);
-			creditNbudget 		= creditNbudget.add(	null == cashbook.getCreditNbudget()	? BigDecimal.ZERO :cashbook.getCreditNbudget()	);
+//			debitSum 			= debitSum.add(			null == cashbook.getDebit()			? BigDecimal.ZERO :cashbook.getDebit()			);
+//			creditBudgetSum 	= creditBudgetSum.add(	null == cashbook.getCreditBudget()	? BigDecimal.ZERO :cashbook.getCreditBudget()	);
+//			creditRevenueSum 	= creditRevenueSum.add(	null == cashbook.getCreditRevenue()	? BigDecimal.ZERO :cashbook.getCreditRevenue()	);
+//			creditNbudget 		= creditNbudget.add(	null == cashbook.getCreditNbudget()	? BigDecimal.ZERO :cashbook.getCreditNbudget()	);
 			//sum
 			cashBookRepository.save(cashbook);
 		}
 		
-		CashBook cashbook = new CashBook();
-		cashbook.setEntryDate(entryDate);
-		cashbook.setTransactionCode("SUM_"+transCode.getCode());
-		cashbook.setDebit(debitSum);
-		cashbook.setCreditBudget(creditBudgetSum);
-		cashbook.setCreditRevenue(creditRevenueSum);
-		cashbook.setCreditNbudget(creditNbudget);
-		cashbook.setRemark("SUM");
-		cashBookRepository.save(cashbook);
+//		CashBook cashbook = new CashBook();
+//		cashbook.setEntryDate(entryDate);
+//		cashbook.setTransactionCode("SUM_"+transCode.getCode());
+//		cashbook.setDebit(debitSum);
+//		cashbook.setCreditBudget(creditBudgetSum);
+//		cashbook.setCreditRevenue(creditRevenueSum);
+//		cashbook.setCreditNbudget(creditNbudget);
+//		cashbook.setRemark("SUM");
+//		cashBookRepository.save(cashbook);
 		
 		sResponse.setStatus(HttpStatus.CREATED.value());
 		
 	}
 	
 	@RequestMapping(value="/saveBalanceMaster", method=RequestMethod.POST)
-	public void saveBalanceMaster(@RequestBody BalanceMaster balanceMaster, HttpServletResponse sResponse) {
+	public void saveBalanceMaster(@RequestBody BalanceMaster balanceMaster, HttpServletResponse sResponse, Authentication authentication) {
 		
 		Date entryDate = new Date();
 		
 		balanceMaster.setCreateDate(entryDate);;
-		
-		BigDecimal amountSum 			= new BigDecimal(BigDecimal.ZERO.toString());
-		for (Balance balance : balanceMaster.getBalances()) {
-			amountSum = amountSum.add(balance.getAmount());
-		}
-		Balance balanceSum = new Balance();
-		balanceSum.setAmount(amountSum);
-		balanceSum.setRemark("SUM");
-		balanceMaster.getBalances().add(balanceSum);
+		balanceMaster.setRecordBy(authentication.getName());
+		balanceMaster.setCreateBy(authentication.getName());
+//		BigDecimal amountSum 			= new BigDecimal(BigDecimal.ZERO.toString());
+//		for (Balance balance : balanceMaster.getBalances()) {
+//			amountSum = amountSum.add(balance.getAmount());
+//		}
+//		Balance balanceSum = new Balance();
+//		balanceSum.setAmount(amountSum);
+//		balanceSum.setRemark("SUM");
+//		balanceMaster.getBalances().add(balanceSum);
 		balanceMasterRepository.save(balanceMaster);
 		
 		
@@ -177,18 +191,39 @@ public class FormRestController {
 	}
 	
 	@RequestMapping(value="/saveSchoolBudget", method=RequestMethod.POST)
-	public void saveSchoolBudget(@RequestBody List<SchoolBudget> schoolBudgetList, HttpServletResponse sResponse) {
+	public void saveSchoolBudget(@RequestBody List<SchoolBudget> schoolBudgetList, HttpServletResponse sResponse, Authentication authentication) {
 		
 		Date entryDate = new Date();
 		
-		BigDecimal amountSum 			= new BigDecimal(BigDecimal.ZERO.toString());
+		
 		for (SchoolBudget schoolBudget : schoolBudgetList) {
 			schoolBudget.setEntryDate(entryDate);
+			schoolBudget.setRecordBy(authentication.getName());
 			
-			amountSum = amountSum.add(schoolBudget.getSum());
+			BigDecimal sum = new BigDecimal(BigDecimal.ZERO.toString());
+			sum = sum.add(schoolBudget.getIncome());
+			sum = sum.add(schoolBudget.getExtra());
+			sum = sum.add(schoolBudget.getInterest());
+			sum = sum.add(schoolBudget.getOther());
+			schoolBudget.setSum(sum);
 		}
 		
 		budgetRepository.saveAll(schoolBudgetList);
+		
+		BigDecimal amountSum 			= new BigDecimal(BigDecimal.ZERO.toString());
+		for (SchoolBudget schoolBudget : budgetRepository.findAll()) {
+			schoolBudget.setEntryDate(entryDate);
+			schoolBudget.setRecordBy(authentication.getName());
+			
+			BigDecimal sum = new BigDecimal(BigDecimal.ZERO.toString());
+			sum = sum.add(schoolBudget.getIncome());
+			sum = sum.add(schoolBudget.getExtra());
+			sum = sum.add(schoolBudget.getInterest());
+			sum = sum.add(schoolBudget.getOther());
+			schoolBudget.setSum(sum);
+			
+			amountSum = amountSum.add(schoolBudget.getSum());
+		}
 		
 		Chest chest4 = chestRepository.findByAccountCode("BOOK4");
 		chest4.setBalance(amountSum);
@@ -224,22 +259,22 @@ public class FormRestController {
 		Date entryDate = new Date();
 		
 		mobilizeMaster.setCreatedDate(entryDate);;
-		Boolean hasSum = false;
-		BigDecimal amountSum 			= new BigDecimal(BigDecimal.ZERO.toString());
-		for (Mobilize mobilize : mobilizeMaster.getMobilizes()) {
-			if(!"SUM".equals(mobilize.getDescription())) {
-				amountSum = amountSum.add(mobilize.getAmount());
-			} else {
-				hasSum = true;
-			}
-		}
-		if(hasSum) {
-			mobilizeMaster.getMobilizes().remove(mobilizeMaster.getMobilizes().size()-1);
-		}
-		Mobilize balanceSum = new Mobilize();
-		balanceSum.setAmount(amountSum);
-		balanceSum.setDescription("SUM");
-		mobilizeMaster.getMobilizes().add(balanceSum);
+//		Boolean hasSum = false;
+//		BigDecimal amountSum 			= new BigDecimal(BigDecimal.ZERO.toString());
+//		for (Mobilize mobilize : mobilizeMaster.getMobilizes()) {
+//			if(!"SUM".equals(mobilize.getDescription())) {
+//				amountSum = amountSum.add(mobilize.getAmount());
+//			} else {
+//				hasSum = true;
+//			}
+//		}
+//		if(hasSum) {
+//			mobilizeMaster.getMobilizes().remove(mobilizeMaster.getMobilizes().size()-1);
+//		}
+//		Mobilize balanceSum = new Mobilize();
+//		balanceSum.setAmount(amountSum);
+//		balanceSum.setDescription("SUM");
+//		mobilizeMaster.getMobilizes().add(balanceSum);
 		mobilizeMasterRepository.save(mobilizeMaster);
 		
 		

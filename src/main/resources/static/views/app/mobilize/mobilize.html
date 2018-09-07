@@ -22,31 +22,25 @@
 					  			</thead>
 					  			<tbody>
 					  				<tr ng-repeat="c in mobilizeList">
-					  					<td><input type="number" ng-readOnly="true" class="form-control" placeholder="" name="no" ng-model="c.no"></td>
-					  					<td><input type="text" class="form-control" placeholder="" name="description" ng-model="c.description"></td>
-					  					<td><input type="number" class="form-control" placeholder="" name="amount" ng-model="c.amount"></td>
+					  					<td><input ng-disabled="!checkPermission('ROLE_MAKER')" type="number" ng-readOnly="true" class="form-control" placeholder="" name="no" ng-model="c.no"></td>
+					  					<td><input ng-disabled="!checkPermission('ROLE_MAKER')" type="text" class="form-control" placeholder="" name="description" ng-model="c.description"></td>
+					  					<td><input ng-disabled="!checkPermission('ROLE_MAKER')" type="text" class="form-control" placeholder="" name="amount" ng-model="c.amount" format="currency"></td>
 					  					<td></td>
-					  					<td><button class="btn btn-danger" ng-click="deleteFromList($index)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+					  					<td><button ng-disabled="!checkPermission('ROLE_MAKER')" lass="btn btn-danger" ng-click="deleteFromList($index)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
 					  				</tr>
 					  				<tr>
 					  					<td></td>
-					  					<td><input type="text" class="form-control" placeholder="" name=description ng-model="mobilizeRow.description"></td>
-					  					<td><input type="number" class="form-control" placeholder="" name="amount" ng-model="mobilizeRow.amount"></td>
-					  					<td><button class="btn btn-primary" ng-click="addToList()" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
+					  					<td><input ng-disabled="!checkPermission('ROLE_MAKER')" type="text" class="form-control" placeholder="" name=description ng-model="mobilizeRow.description"></td>
+					  					<td><input ng-disabled="!checkPermission('ROLE_MAKER')" type="text" class="form-control" placeholder="" name="amount" ng-model="mobilizeRow.amount" format="currency"></td>
+					  					<td><button ng-disabled="!checkPermission('ROLE_MAKER')" class="btn btn-primary" ng-click="addToList()" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
 					  					<td></td>
 					  				</tr>
 					  			</tbody>
 					  		</table>
 			          	</div>
 			          </div>  
-			          <div class="form-group">
-			          	<label class="col-sm-2 text-uppercase control-label">จำนวนเงิน(ตัวอักษร)</label>
-			          	<div class="col-sm-8">
-			          		<input type="text" ng-disabled="false" class="form-control" placeholder="" name="totalText" ng-model="mobilize.totalText">
-			          	</div>
-			          </div>  
 			          
-			          <button class="btn btn-primary" ng-click="save()" ><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>บันทึก</button>
+			          <button class="btn btn-primary" ng-if="checkPermission('ROLE_MAKER')" ng-click="save()" ><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>บันทึก</button>
 			          <button class="btn btn-danger" ng-if="mode =='view'" title="Print" ng-click="printPdf(mobilize);" ><i class="fa fa-print" aria-hidden="true"></i> พิมพ์</button>
 	</form>
   </div>
