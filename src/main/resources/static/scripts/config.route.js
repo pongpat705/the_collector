@@ -279,20 +279,34 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams',
                   }]);
               }]
             }
-      }).state('app.user', {
-	        url: '/user',
-            templateUrl: './views/app/user/user.html',
-            controller: 'userCtrl',
+      }).state('app.student', {
+	        url: '/student',
+            templateUrl: './views/app/user/student.html',
+            controller: 'studentCtrl',
         	resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                   return $ocLazyLoad.load([{
                       files: [
                     	  	  './scripts/services/user/userService.js',
-                              './scripts/controllers/user/userCtrl.js'
+                              './scripts/controllers/user/studentCtrl.js'
                               ]
                     }]);
                 }]
               }
+	    }).state('app.user', {
+	        url: '/user',
+	        templateUrl: './views/app/user/user.html',
+	        controller: 'userCtrl',
+	    	resolve: {
+	            deps: ['$ocLazyLoad', function($ocLazyLoad) {
+	              return $ocLazyLoad.load([{
+	                  files: [
+	                	  	  './scripts/services/user/userService.js',
+	                          './scripts/controllers/user/userCtrl.js'
+	                          ]
+	                }]);
+	            }]
+	          }
         }).state('app.user.role',{
 	      	url: '/{userId:int}',
 	      	onEnter:['$uibModal', '$state', '$stateParams', function($uibModal, $state, $stateParams){

@@ -1,14 +1,31 @@
 package th.co.collector.controllers;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -16,13 +33,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import th.co.collector.entities.Student;
 import th.co.collector.entities.TransCode;
 import th.co.collector.entities.chest.Chest;
-import th.co.collector.entities.mobilize.Mobilize;
 import th.co.collector.entities.mobilize.MobilizeMaster;
-import th.co.collector.entities.moneycontrol.Balance;
 import th.co.collector.entities.moneycontrol.BalanceMaster;
 import th.co.collector.entities.moneycontrol.CashBook;
 import th.co.collector.entities.moneycontrol.MoneyControl;
@@ -32,12 +52,15 @@ import th.co.collector.repositories.CashBookRepository;
 import th.co.collector.repositories.ChestRepository;
 import th.co.collector.repositories.MobilizeReporsitory;
 import th.co.collector.repositories.SchoolBudgetRepository;
+import th.co.collector.repositories.StudentRepository;
 import th.co.collector.repositories.form.MoneyControlRepository;
 import th.co.collector.services.CommonService;
 
 @RestController
 @RequestMapping(value="/service")
 public class FormRestController {
+	
+	Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	CommonService commonService;
@@ -59,6 +82,9 @@ public class FormRestController {
 	
 	@Autowired
 	MobilizeReporsitory mobilizeMasterRepository;
+	
+	@Autowired
+	StudentRepository studentRepos;
 	
 	@RequestMapping(value="/saveMoneyControl", method=RequestMethod.POST)
 	public void saveMoneyControl(@RequestParam String controlType, @RequestBody List<MoneyControl> moneyControlList, HttpServletResponse sResponse, Authentication authentication) {
@@ -288,5 +314,142 @@ public class FormRestController {
 	}
 	
 	
+	@RequestMapping(value="/uploadFile" ,method = RequestMethod.POST)
+    public @ResponseBody Map<String, Object> uploadFile(@RequestParam MultipartFile uploadItem, Authentication authentication) throws Exception,ParseException{
+		 List<Map<String, String>> dataFromExcel = new ArrayList<Map<String,String>>();
+		 List<String> errorList = new ArrayList<String>();
+		 Map<String, Object> resultObject = new HashMap<String, Object>();
+
+		 try {
+			 if(uploadItem.getContentType().equals("application/vnd.ms-excel") || uploadItem.getContentType().equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") || uploadItem.getContentType().equals("application/vnd.ms-excel.sheet.macroEnabled.12")){
+				 dataFromExcel = uploadExcelFile(uploadItem, errorList);
+				 //log.info("dataFromExcel : " + dataFromExcel);
+				 resultObject.put("excel", dataFromExcel);
+				 resultObject.put("errorList", errorList);
+				 
+				 for (Map<String, String> map : dataFromExcel) {
+					 char active = 'Y';
+					 
+					 Student checkSt = studentRepos.findByStNatidAndActive(map.get("stNatid"), active);
+					 if(null == checkSt) {
+						Student st = new Student();
+						st.setCreatedBy(authentication.getName());
+						st.setCreatedDate(new Date());
+						
+						st.setActive(map.get("active").charAt(0));
+						st.setStGrade(map.get("stGrade"));
+						st.setStName(map.get("stName"));
+						st.setStNatid(map.get("stNatid"));
+						studentRepos.save(st);
+					 } else {
+						 checkSt.setActive(map.get("active").charAt(0));
+						 checkSt.setStGrade(map.get("stGrade"));
+						 checkSt.setStName(map.get("stName"));
+						 checkSt.setUpdatedBy(authentication.getName());
+						 checkSt.setUpdatedDate(new Date());
+						 studentRepos.save(checkSt);
+					 }
+						
+				}
+			 }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultObject;
+	}
+	
+	public List<Map<String, String>> uploadExcelFile(MultipartFile uploadItem, List<String> errorMap) throws OutOfMemoryError, Exception{
+		log.info("Step : upload file toserrver and get datafrom excel");
+		String fileType = uploadItem.getContentType();
+		
+		List<Map<String, String>> result = new ArrayList<Map<String,String>>();
+		
+		if (uploadItem != null)
+		if (uploadItem.getSize() > 0) {
+			
+				log.info("Size : " + uploadItem.getSize());				
+				log.info("getInputStream : " + uploadItem.getInputStream());
+	
+				
+				if(fileType.equals("application/vnd.ms-excel")){
+					List<Map<String, String>> rawData = getRawDataFromExcel(uploadItem.getInputStream());
+					if(rawData != null && !rawData.isEmpty()){
+						//FillinData(rawData, errorMap);
+					}
+					result.addAll(rawData);
+				}else if(fileType.equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")){
+					List<Map<String, String>> rawData = getRawDataFromExcel(uploadItem.getInputStream());
+					if(rawData != null && !rawData.isEmpty()){
+						//FillinData(rawData, errorMap);
+					}
+					result.addAll(rawData);
+				}
+				log.info(" after get excel data ");
+		}
+
+		return result;
+	}
+	
+	public List<Map<String, String>> getRawDataFromExcel(InputStream is) throws InvalidFormatException, IOException{
+		List<Map<String, String>> result = new ArrayList<Map<String,String>>();
+				
+		try {
+	        // read Excel file in Java
+			XSSFWorkbook wb = new XSSFWorkbook(is);
+			
+			List<String> header = new ArrayList<String>();
+			header.add("stName");
+			header.add("stGrade");
+			header.add("stNatid");
+			header.add("active");
+			
+			int sheetNum = 0;
+			XSSFSheet sheet = wb.getSheetAt(sheetNum);
+			XSSFRow row;
+			Iterator<Row> rows = sheet.rowIterator();
+			
+			List<Integer> col = new ArrayList<Integer>();
+			col.add(0);
+			col.add(1);
+			col.add(2);
+			col.add(3);
+	
+			String cellValue = "";
+			while (rows.hasNext()) {					
+				Map<String, String> document = new HashMap<String, String>();
+			    row = (XSSFRow) rows.next();
+			    if(row.getRowNum() != 0) {
+				    for(int i : col) {
+				    	if(null != row.getCell(i)) {
+							cellValue = row.getCell(i).getStringCellValue();
+					    	if(i == 0) {
+					    		document.put(header.get(0), cellValue);
+					    	}
+					    	if(i == 1) {
+					    		document.put(header.get(1), cellValue);
+					    	}
+					    	if(i == 2) {
+					    		document.put(header.get(2), cellValue);
+					    	}
+					    	if(i == 3) {
+					    		document.put(header.get(3), cellValue);
+					    	}
+				    	}
+				    }	
+				    
+				    result.add(document);
+			   }						    
+			}		
+			
+			wb.close();
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			Map<String, String> document = new HashMap<String, String>();
+			document.put("e",e.getMessage());
+			result.add(document); 
+		}
+		return result;
+				
+	}
 
 }

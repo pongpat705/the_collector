@@ -149,6 +149,12 @@
 				<span >{{functions.MANAGE_USER.value1}}</span> 
 			</a>	
 		</li>	
+		<li ng-class="{'active':isCurrentState('app.student')}" ng-if="checkPermission('ROLE_SUPER_ADMIN')">
+			<a href="javascript:;" ui-sref-active="active" ui-sref="app.student" aria-haspopup="true" aria-expanded="true">
+				<i class="fa fa-user-secret" aria-hidden="true"></i>
+				<span >{{functions.MANAGE_STUDENT.value1}}</span> 
+			</a>	
+		</li>	
 	</ul>
 	<ul class="nav navbar-nav navbar-right" >
 		<li class="uib-dropdown dropdown open" uib-dropdown>

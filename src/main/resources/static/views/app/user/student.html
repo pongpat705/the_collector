@@ -1,0 +1,12 @@
+<div class="p-x m-t-lg">
+  <div class="row">
+  		<input type="file" id="myFile">
+  		<button class="btn btn-md btn-info" ng-if="checkPermission('ROLE_SUPER_ADMIN')" title="Upload" ng-click="uploadStudent()" ><i class="fa fa-plus" aria-hidden="true"></i>upload Student</button>
+  		<a class="button btn btn-md btn-danger" href="./student/template/excel"> download template</a>
+  </div>
+  <br>
+  <div class="row">
+	<div ng-if="userGridOptions.totalItems > 0" ui-grid="userGridOptions" class="grid" ui-grid-pagination>
+  	</div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 package th.co.collector.controllers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,16 +13,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +42,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
 import th.co.collector.components.Setup;
 import th.co.collector.constants.ApplicationConstants;
+import th.co.collector.entities.Student;
 import th.co.collector.entities.mobilize.Mobilize;
 import th.co.collector.entities.mobilize.MobilizeMaster;
 import th.co.collector.entities.moneycontrol.Balance;
@@ -42,6 +50,7 @@ import th.co.collector.entities.moneycontrol.BalanceMaster;
 import th.co.collector.entities.parameter.SystemParameter;
 import th.co.collector.repositories.BalanceMasterRepository;
 import th.co.collector.repositories.MobilizeReporsitory;
+import th.co.collector.repositories.StudentRepository;
 import th.co.collector.repositories.parameter.SystemParameterRepository;
 
 @Controller
@@ -60,6 +69,9 @@ public class ExportController {
 	
 	@Autowired
 	MobilizeReporsitory mobilizeRepository;
+	
+	@Autowired
+	StudentRepository studentRepos;
 	
 	@RequestMapping(value="/balance/{masterId}/pdf", method=RequestMethod.GET)
 	@ResponseBody
@@ -181,26 +193,48 @@ public class ExportController {
 				resultSet.add(mobilizeDetailList);
 			}
 			
-			Collection<Map<String, ?>> myColl = (Collection<Map<String, ?>>) resultSet;
-			
-			JRMapCollectionDataSource ds = new JRMapCollectionDataSource(myColl);
-			
 			
 			try {
 				File file = new ClassPathResource("/jasper/MOBILIZE_REPORT.jasper").getFile();
-				InputStream path = new FileInputStream(file);
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				ZipOutputStream zipO = new ZipOutputStream(baos);
 				
-				JasperPrint jasperPrint = JasperFillManager.fillReport(path, params, ds);
-				byte[] arrayByte = JasperExportManager.exportReportToPdf(jasperPrint);
+				Pageable page = new PageRequest(0, Integer.MAX_VALUE);
+				Page<Student> studentList = studentRepos.findByActive('Y', page);
+				log.info("student size "+studentList.getSize());
+				for (Student student : studentList.getContent()) {
+					
+					params.put("NAME", student.getStName());
+					params.put("REF1", student.getStGrade());
+					params.put("REF2", student.getStNatid());
+					
+					
+					ZipEntry ze = new ZipEntry(student.getStNatid()+".pdf");
+					zipO.putNextEntry(ze);
+					InputStream path = new FileInputStream(file);
+					Collection<Map<String, ?>> myColl = (Collection<Map<String, ?>>) resultSet;
+					
+					JRMapCollectionDataSource ds = new JRMapCollectionDataSource(myColl);
+					JasperPrint jasperPrint = JasperFillManager.fillReport(path, params, ds);
+					byte[] arrayByte = JasperExportManager.exportReportToPdf(jasperPrint);
+					
+					zipO.write(arrayByte, 0, arrayByte.length);
+					zipO.closeEntry();
+					
+				}
+				zipO.flush();
+				baos.flush();
+				zipO.close();
+				baos.close();
 				//MAO
-				response.setContentType("application/octet-stream");
-				response.setHeader("Content-disposition","attachment;filename=MOBILIZE_REPORT_"+System.currentTimeMillis()+".pdf"); 
-				response.setContentLength(arrayByte.length);
+				response.setContentType("application/zip");
+				response.setHeader("Content-disposition","attachment;filename=MOBILIZE_REPORT_"+System.currentTimeMillis()+".zip"); 
 				ServletOutputStream outstream = response.getOutputStream();
-
-				outstream.write(arrayByte);
+				outstream.write(baos.toByteArray());
 				outstream.flush();
 				outstream.close();
+				
+				
 
 			} catch (JRException e) {
 				// TODO Auto-generated catch block
@@ -210,6 +244,27 @@ public class ExportController {
 				e.printStackTrace();
 			}
 						
+		}
+	}
+	
+	@RequestMapping(value="/student/template/excel", method=RequestMethod.GET)
+	@ResponseBody
+	public void studentTemplateExcel(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			
+			XSSFWorkbook workbook = new XSSFWorkbook(this.getClass().getClassLoader().getResourceAsStream("jasper/template_excel.xlsx"));		
+			response.setContentType("application/vnd.ms-excel");
+			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+			response.setHeader("Content-Disposition", "attachment;filename=template_excel.xlsx");
+			ServletOutputStream out = response.getOutputStream();
+			workbook.write(out);
+			workbook.close();
+			out.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

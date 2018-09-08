@@ -209,6 +209,17 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 			systemParameterRepository.save(manageUser);
 		}
 		
+		SystemParameter manageStudent = systemParameterRepository.findByParamGroupAndParamCode("FUNCTION", "MANAGE_STUDENT");
+		if(null == manageStudent) {
+			manageStudent = new SystemParameter();
+			manageStudent.setCreateBy("SYSTEM");
+			manageStudent.setCreateDate(new Date());
+			manageStudent.setParamGroup("FUNCTION");
+			manageStudent.setParamCode("MANAGE_STUDENT");
+			manageStudent.setValue1("จัดการนักเรียน");
+			systemParameterRepository.save(manageStudent);
+		}
+		
 		SystemParameter moneyControlForm = systemParameterRepository.findByParamGroupAndParamCode("FUNCTION", "MONEY_CONTROL_FORM");
 		if(null == moneyControlForm) {
 			moneyControlForm = new SystemParameter();

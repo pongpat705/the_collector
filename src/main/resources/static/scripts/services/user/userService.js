@@ -18,6 +18,20 @@ angular.module('app')
         },
         patchUser : function(user, id){
         	return $http.patch(_CONTEXT+'/service/patchUser/'+id,user);
+        },
+        getAllActiveStudent: function(page, size) {
+        	return $http.get(_CONTEXT+'/api/students/search/findByActive',{params:{'page':page, 'size':size, 'active':'Y'}});
+        },
+        uploadFile : function(file){
+      	  var fd = new FormData();
+            fd.append('uploadItem', file);
+            return $http(
+          		  {	url: CONTEXT+'/service/uploadFile/',
+          			method: 'POST',
+          			data: fd,
+          			headers: { 'Content-Type': undefined},
+          			transformRequest: angular.identity
+          		  });
         }
     };
   }])
